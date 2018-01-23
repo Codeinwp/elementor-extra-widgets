@@ -16,7 +16,7 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 		/**
 		 * @var ElementorExtraWidgets
 		 */
-		protected static $instance = null;
+		public static $instance = null;
 
 		/**
 		 * The version of this library
@@ -48,7 +48,7 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 			\Elementor\Plugin::instance()->elements_manager->add_category(
 				'obfx-elementor-widgets',
 				array(
-					'title' => __( 'Orbit Fox Addons', 'themeisle-companion' ),
+					'title' => __( 'Orbit Fox Addons', 'textdomain' ),
 					'icon'  => 'fa fa-plug',
 				),
 				1
