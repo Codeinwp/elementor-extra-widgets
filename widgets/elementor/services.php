@@ -54,7 +54,9 @@ class Services extends \Elementor\Widget_Base {
 	 * @return array
 	 */
 	public function get_categories() {
-		return [ 'obfx-elementor-widgets' ];
+		$category_args = apply_filters( 'elementor_extra_widgets_category_args', array() );
+		$slug = isset( $category_args['slug'] ) ?  $category_args['slug'] : 'obfx-elementor-widgets';
+		return [ $slug ];
 	}
 
 	/**
