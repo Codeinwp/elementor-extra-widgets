@@ -45,24 +45,21 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 		 */
 		public function add_elementor_category() {
 
+			$category_args = apply_filters( 'elementor_extra_widgets_category_args', array(
+				'slug' => 'obfx-elementor-widgets',
+				'title' => __( 'Orbit Fox Addons', 'textdomain' ),
+				'icon'  => 'fa fa-plug',
+			) );
+
 			\Elementor\Plugin::instance()->elements_manager->add_category(
-				'obfx-elementor-widgets',
+				$category_args['slug'],
 				array(
-					'title' => __( 'Orbit Fox Addons', 'textdomain' ),
-					'icon'  => 'fa fa-plug',
+					'title' => $category_args['title'],
+					'icon'  => $category_args['slug'],
 				),
 				1
 			);
 
-			// @TODO meh, this should be declared dynamically
-//			\Elementor\Plugin::instance()->elements_manager->add_category(
-//				'eaw-elementor-widgets',
-//				array(
-//					'title' => __( 'EAW Widgets', 'textdomain' ),
-//					'icon'  => 'fa fa-plug',
-//				),
-//				1
-//			);
 		}
 
 		public function register_assets() {
