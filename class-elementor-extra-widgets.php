@@ -46,10 +46,20 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 		public function add_elementor_category() {
 
 			$category_args = apply_filters( 'elementor_extra_widgets_category_args', array(
-				'slug' => 'obfx-elementor-widgets',
+				'slug'  => 'obfx-elementor-widgets',
 				'title' => __( 'Orbit Fox Addons', 'textdomain' ),
 				'icon'  => 'fa fa-plug',
 			) );
+
+			// add a separate category for the premium widgets
+			\Elementor\Plugin::instance()->elements_manager->add_category(
+				$category_args['slug'] . '-pro',
+				array(
+					'title' => 'Premium ' . $category_args['title'],
+					'icon'  => $category_args['slug'],
+				),
+				1
+			);
 
 			\Elementor\Plugin::instance()->elements_manager->add_category(
 				$category_args['slug'],
@@ -59,7 +69,6 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 				),
 				1
 			);
-
 		}
 
 		public function register_assets() {
@@ -69,30 +78,52 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 		}
 
 		/**
-		 * Require and instantiate Elementor Widgets.
+		 * Require and instantiate Elementor Widgets and Premium Placeholders.
 		 *
 		 * @param $widgets_manager
 		 */
 		public function add_elementor_widgets( $widgets_manager ) {
-			$elementor_widgets = array(
-				'pricing-table',
-				'services',
-				'posts-grid',
-			);
+			$elementor_widgets = $this->get_dir_files( __DIR__ . '/widgets/elementor');
+			$placeholders = $this->get_dir_files( __DIR__ . '/widgets/elementor/placeholders');
 
 			foreach ( $elementor_widgets as $widget ) {
-				require_once dirname( __FILE__ ) . '/widgets/elementor/' . $widget . '.php';
+				require_once $widget;
+
+				$widget = basename( $widget, ".php" );
+
+				if ( $widget === 'premium-placeholder') {// avoid instantiate an abstract class
+					continue;
+				}
+
+				$classname = $this->convert_filename_to_classname($widget);
+
+				if ( class_exists( $classname ) ) {
+					$widget_object = new $classname();
+					$widgets_manager->register_widget_type( $widget_object );
+				}
 			}
 
-			// Pricing table
-			$widget = new ElementorExtraWidgets\Pricing_Table();
-			$widgets_manager->register_widget_type( $widget );
-			// Services
-			$widget = new ElementorExtraWidgets\Services();
-			$widgets_manager->register_widget_type( $widget );
-			// Posts grid
-			$widget = new ElementorExtraWidgets\Posts_Grid();
-			$widgets_manager->register_widget_type( $widget );
+			foreach ( $placeholders as $widget ) {
+				require_once $widget;
+			}
+
+			do_action('eaw_before_adding_pro_widgets' );
+
+			foreach ( $placeholders as $widget ) {
+				$widget = basename( $widget, ".php" );
+
+				$classname = $this->convert_filename_to_classname($widget);
+
+				// Maybe Premium Elements
+				if ( ! class_exists( $classname ) ) {
+					$classname = $classname . '_Placeholder';
+				}
+
+				if ( class_exists( $classname ) ) {
+					$widget_object = new $classname();
+					$widgets_manager->register_widget_type( $widget_object );
+				}
+			}
 		}
 
 		/**
@@ -133,6 +164,50 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 
 			include_once( plugin_dir_path( __FILE__ ) . 'widgets/wp/eaw-posts-widget-plus.php' );
 			register_widget( 'EAW_Recent_Posts_Plus' );
+		}
+
+		/**
+		 * Returns an array of all PHP files in the specified absolute path.
+		 * Inspired from jetpack's glob_php
+		 *
+		 * @param string $absolute_path The absolute path of the directory to search.
+		 * @return array Array of absolute paths to the PHP files.
+		 */
+		protected function get_dir_files( $absolute_path ) {
+			if ( function_exists( 'glob' ) ) {
+				return glob( "$absolute_path/*.php" );
+			}
+
+			$absolute_path = untrailingslashit( $absolute_path );
+			$files = array();
+			if ( ! $dir = @opendir( $absolute_path ) ) {
+				return $files;
+			}
+
+			while ( false !== $file = readdir( $dir ) ) {
+				if ( '.' == substr( $file, 0, 1 ) || '.php' != substr( $file, -4 ) ) {
+					continue;
+				}
+
+				$file = "$absolute_path/$file";
+
+				if ( ! is_file( $file ) ) {
+					continue;
+				}
+
+				$files[] = $file;
+			}
+
+			closedir( $dir );
+
+			return $files;
+		}
+
+		protected function convert_filename_to_classname( $widget ){
+			$classname = ucwords( $widget, "-" );
+			$classname = str_replace( '-', '_', $classname );
+			$classname = '\\ThemeIsle\\ElementorExtraWidgets\\' . $classname;
+			return $classname;
 		}
 
 		/**
