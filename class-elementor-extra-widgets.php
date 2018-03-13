@@ -84,7 +84,6 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 		 */
 		public function add_elementor_widgets( $widgets_manager ) {
 			$elementor_widgets = $this->get_dir_files( __DIR__ . '/widgets/elementor');
-			$placeholders = $this->get_dir_files( __DIR__ . '/widgets/elementor/placeholders');
 
 			foreach ( $elementor_widgets as $widget ) {
 				require_once $widget;
@@ -103,25 +102,28 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 				}
 			}
 
-			foreach ( $placeholders as $widget ) {
-				require_once $widget;
-			}
-
-			do_action('eaw_before_adding_pro_widgets' );
-
-			foreach ( $placeholders as $widget ) {
-				$widget = basename( $widget, ".php" );
-
-				$classname = $this->convert_filename_to_classname($widget);
-
-				// Maybe Premium Elements
-				if ( ! class_exists( $classname ) ) {
-					$classname = $classname . '_Placeholder';
+			if ( apply_filters( 'eaw_should_load_placeholders', true ) ) {
+				$placeholders = $this->get_dir_files( __DIR__ . '/widgets/elementor/placeholders');
+				foreach ( $placeholders as $widget ) {
+					require_once $widget;
 				}
 
-				if ( class_exists( $classname ) ) {
-					$widget_object = new $classname();
-					$widgets_manager->register_widget_type( $widget_object );
+				do_action('eaw_before_pro_widgets', $placeholders, $widgets_manager );
+
+				foreach ( $placeholders as $widget ) {
+					$widget = basename( $widget, ".php" );
+
+					$classname = $this->convert_filename_to_classname($widget);
+
+					// Maybe Premium Elements
+					if ( ! class_exists( $classname ) ) {
+						$classname = $classname . '_Placeholder';
+					}
+
+					if ( class_exists( $classname ) ) {
+						$widget_object = new $classname();
+						$widgets_manager->register_widget_type( $widget_object );
+					}
 				}
 			}
 		}
