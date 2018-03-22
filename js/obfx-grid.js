@@ -1,5 +1,6 @@
 /* global elementor */
 (function ($) {
+
 	$( document ).ready(
 		function () {
 			checkImageSize();
@@ -15,7 +16,7 @@
 	if ( typeof elementor !== 'undefined' ) {
 		$( window ).on(
 			'elementor/frontend/init', function () {
-				elementor.hooks.addAction(
+                elementor.hooks.addAction(
 					'panel/open_editor/widget/obfx-posts-grid', function ( panel ) {
 						var $element = panel.$el.find( '.elementor-control-section_grid_image' );
 						$element.click(
@@ -46,12 +47,11 @@
 					imageHeight = $( this ).find( '.obfx-grid-col-image img' ).height();
 
 				if ( $( this ).find( '.obfx-grid-col-image' ).length > 0 ) {
-
 					if ( containerHeight > imageHeight ) {
 						container.addClass( 'obfx-fit-height' );
 					}
 
-					if ( containerWidth > imageWidth && container.hasClass( 'obfx-fit-height' ) ) {
+					if ( (containerWidth - imageWidth > 2) && container.hasClass( 'obfx-fit-height' ) ) {
 						container.removeClass( 'obfx-fit-height' );
 					}
 				}
