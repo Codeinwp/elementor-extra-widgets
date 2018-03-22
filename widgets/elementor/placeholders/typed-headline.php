@@ -13,11 +13,11 @@ class Typed_Headline_Placeholder extends Premium_Placeholder {
 	}
 
 	/**
-	 * Get widget icon.
+	 * Widget icon.
 	 *
 	 * @return string
 	 */
 	public function get_icon() {
-		return 'eicon-accordion';
+		return 'fa fa-h-square';
 	}
 }

@@ -38,6 +38,9 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 			add_action( 'wp_enqueue_scripts', array( $this, 'register_assets' ), 999 );
 
 			add_action( 'elementor/widgets/widgets_registered', array( $this, 'add_elementor_widgets' ) );
+			if ( ! defined( 'EAW_PRO_VERSION' ) ) {
+				add_action( 'elementor/editor/after_enqueue_scripts', array( $this, 'enqueue_sidebar_css' ) );
+			}
 		}
 
 		/**
@@ -77,24 +80,27 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 			wp_register_style( 'eaw-elementor', plugins_url( '/css/public.css', __FILE__ ), array(), $this::$version );
 		}
 
+		public function enqueue_sidebar_css() {
+			wp_enqueue_style( 'eaw-elementor-admin', plugins_url( '/css/admin.css', __FILE__ ), array(), $this::$version );
+		}
 		/**
 		 * Require and instantiate Elementor Widgets and Premium Placeholders.
 		 *
 		 * @param $widgets_manager
 		 */
 		public function add_elementor_widgets( $widgets_manager ) {
-			$elementor_widgets = $this->get_dir_files( __DIR__ . '/widgets/elementor');
+			$elementor_widgets = $this->get_dir_files( __DIR__ . '/widgets/elementor' );
 
 			foreach ( $elementor_widgets as $widget ) {
 				require_once $widget;
 
 				$widget = basename( $widget, ".php" );
 
-				if ( $widget === 'premium-placeholder') {// avoid instantiate an abstract class
+				if ( $widget === 'premium-placeholder' ) {// avoid instantiate an abstract class
 					continue;
 				}
 
-				$classname = $this->convert_filename_to_classname($widget);
+				$classname = $this->convert_filename_to_classname( $widget );
 
 				if ( class_exists( $classname ) ) {
 					$widget_object = new $classname();
@@ -102,18 +108,18 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 				}
 			}
 
-			if ( apply_filters( 'eaw_should_load_placeholders', true ) ) {
-				$placeholders = $this->get_dir_files( __DIR__ . '/widgets/elementor/placeholders');
+			if ( apply_filters( 'eaw_should_load_placeholders', false ) ) {
+				$placeholders = $this->get_dir_files( __DIR__ . '/widgets/elementor/placeholders' );
 				foreach ( $placeholders as $widget ) {
 					require_once $widget;
 				}
 
-				do_action('eaw_before_pro_widgets', $placeholders, $widgets_manager );
+				do_action( 'eaw_before_pro_widgets', $placeholders, $widgets_manager );
 
 				foreach ( $placeholders as $widget ) {
 					$widget = basename( $widget, ".php" );
 
-					$classname = $this->convert_filename_to_classname($widget);
+					$classname = $this->convert_filename_to_classname( $widget );
 
 					// Maybe Premium Elements
 					if ( ! class_exists( $classname ) ) {
@@ -173,6 +179,7 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 		 * Inspired from jetpack's glob_php
 		 *
 		 * @param string $absolute_path The absolute path of the directory to search.
+		 *
 		 * @return array Array of absolute paths to the PHP files.
 		 */
 		protected function get_dir_files( $absolute_path ) {
@@ -181,13 +188,13 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 			}
 
 			$absolute_path = untrailingslashit( $absolute_path );
-			$files = array();
+			$files         = array();
 			if ( ! $dir = @opendir( $absolute_path ) ) {
 				return $files;
 			}
 
 			while ( false !== $file = readdir( $dir ) ) {
-				if ( '.' == substr( $file, 0, 1 ) || '.php' != substr( $file, -4 ) ) {
+				if ( '.' == substr( $file, 0, 1 ) || '.php' != substr( $file, - 4 ) ) {
 					continue;
 				}
 
@@ -205,10 +212,11 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 			return $files;
 		}
 
-		protected function convert_filename_to_classname( $widget ){
+		protected function convert_filename_to_classname( $widget ) {
 			$classname = ucwords( $widget, "-" );
 			$classname = str_replace( '-', '_', $classname );
 			$classname = '\\ThemeIsle\\ElementorExtraWidgets\\' . $classname;
+
 			return $classname;
 		}
 

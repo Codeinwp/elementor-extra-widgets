@@ -7,7 +7,6 @@ namespace ThemeIsle\ElementorExtraWidgets;
  * This way, we'll configure the a Placeholder Widget in Lite plugins which will be overwritten in the Pro plugin.
  */
 abstract class Premium_Placeholder extends \Elementor\Widget_Base {
-
 	/**
 	 * Each Placeholder must declare for which Premium Widget will keep the place warm
 	 * @return mixed
@@ -72,9 +71,9 @@ abstract class Premium_Placeholder extends \Elementor\Widget_Base {
 			[
 				'raw'             => sprintf(
 					'<div><h3>%s</h3><a href="%s" target="_blank">%s</a></div>',
-					__( 'Premium widget unavailable.', 'textdomain' ),
+					__( 'This widget is part of the pro version of Sizzify.', 'textdomain' ),
 					$this->get_upsell_link(),
-					__( 'But you can buy it here!', 'textdomain' )
+					__( 'Upgrade Here!', 'textdomain' )
 				),
 				'type'            => \Elementor\Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',

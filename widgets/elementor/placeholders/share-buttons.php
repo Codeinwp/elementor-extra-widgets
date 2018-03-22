@@ -13,11 +13,11 @@ class Share_Buttons_Placeholder extends Premium_Placeholder {
 	}
 
 	/**
-	 * Get widget icon.
+	 * Widget icon.
 	 *
 	 * @return string
 	 */
 	public function get_icon() {
-		return 'eicon-accordion';
+		return 'fa fa-share-alt';
 	}
 }

@@ -8,16 +8,20 @@ class Flipcard_Placeholder extends Premium_Placeholder {
 		return 'Flipcard';
 	}
 
+	public function get_name() {
+		return 'eaw_flipcard';
+	}
+
 	public function get_pro_element_name() {
 		return 'flipcard';
 	}
 
 	/**
-	 * Get widget icon.
+	 * Widget icon.
 	 *
 	 * @return string
 	 */
 	public function get_icon() {
-		return 'eicon-accordion';
+		return 'fa fa-share-square';
 	}
 }
