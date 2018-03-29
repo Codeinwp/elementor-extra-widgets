@@ -490,6 +490,16 @@ class Posts_Grid extends \Elementor\Widget_Base {
 			]
 		);
 
+		// Show full content.
+		$this->add_control(
+			'grid_content_full_post',
+			[
+				'label'   => __( 'Show full content', 'textdomain' ),
+				'type'    => \Elementor\Controls_Manager::SWITCHER,
+				'default' => '',
+			]
+		);
+
 		// Length.
 		$this->add_control(
 			'grid_content_length',
@@ -498,6 +508,9 @@ class Posts_Grid extends \Elementor\Widget_Base {
 				'label'       => '<i class="fa fa-arrows-h"></i> ' . __( 'Length (words)', 'textdomain' ),
 				'placeholder' => __( 'Length of content (words)', 'textdomain' ),
 				'default'     => 30,
+				'condition'   => [
+						'grid_content_full_post!' => 'yes'
+				]
 			]
 		);
 
@@ -1453,7 +1466,7 @@ class Posts_Grid extends \Elementor\Widget_Base {
 
 			// Pagination.
 			if ( ! empty( $settings['grid_pagination'] ) ) { ?>
-                <div class="obfx-grid-pagination">
+				<div class="obfx-grid-pagination">
 					<?php
 					$big           = 999999999;
 					$totalpages    = $query->max_num_pages;
@@ -1474,10 +1487,10 @@ class Posts_Grid extends \Elementor\Widget_Base {
 					);
 
 					$pagination = paginate_links( $paginate_args ); ?>
-                    <nav class="pagination">
+					<nav class="pagination">
 						<?php echo $pagination; ?>
-                    </nav>
-                </div>
+					</nav>
+				</div>
 				<?php
 			}
 		} // End if().
@@ -1503,8 +1516,8 @@ class Posts_Grid extends \Elementor\Widget_Base {
 
 				if ( $settings['grid_image_link'] == 'yes' ) {
 					?>
-                    <div class="obfx-grid-col-image">
-                        <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
+					<div class="obfx-grid-col-image">
+						<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
 							<?php
 							the_post_thumbnail(
 								'full', array(
@@ -1512,10 +1525,10 @@ class Posts_Grid extends \Elementor\Widget_Base {
 									'alt'   => get_the_title( get_post_thumbnail_id() ),
 								)
 							); ?>
-                        </a>
-                    </div>
+						</a>
+					</div>
 				<?php } else { ?>
-                    <div class="obfx-grid-col-image">
+					<div class="obfx-grid-col-image">
 						<?php
 						the_post_thumbnail(
 							'full', array(
@@ -1523,7 +1536,7 @@ class Posts_Grid extends \Elementor\Widget_Base {
 								'alt'   => get_the_title( get_post_thumbnail_id() ),
 							)
 						); ?>
-                    </div>
+					</div>
 					<?php
 				}
 			}
@@ -1537,16 +1550,16 @@ class Posts_Grid extends \Elementor\Widget_Base {
 		$settings = $this->get_settings();
 
 		if ( $settings['grid_title_hide'] !== 'yes' ) { ?>
-            <<?php echo $settings['grid_title_tag']; ?> class="entry-title obfx-grid-title">
+			<<?php echo $settings['grid_title_tag']; ?> class="entry-title obfx-grid-title">
 			<?php if ( $settings['grid_title_link'] == 'yes' ) { ?>
-                <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
+				<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
 					<?php the_title(); ?>
-                </a>
+				</a>
 				<?php
 			} else {
 				the_title();
 			} ?>
-            </<?php echo $settings['grid_title_tag']; ?>>
+			</<?php echo $settings['grid_title_tag']; ?>>
 			<?php
 		}
 	}
@@ -1559,7 +1572,7 @@ class Posts_Grid extends \Elementor\Widget_Base {
 
 		if ( $settings['grid_meta_hide'] !== 'yes' ) {
 			if ( ! empty( $settings['grid_meta_display'] ) ) { ?>
-                <div class="entry-meta obfx-grid-meta">
+				<div class="entry-meta obfx-grid-meta">
 
 					<?php
 					foreach ( $settings['grid_meta_display'] as $meta ) {
@@ -1567,7 +1580,7 @@ class Posts_Grid extends \Elementor\Widget_Base {
 						switch ( $meta ) :
 							// Author
 							case 'author': ?>
-                                <span class="obfx-grid-author">
+								<span class="obfx-grid-author">
 									<?php
 									echo ( $settings['grid_meta_remove_icons'] == '' ) ? '<i class="fa fa-user"></i>' : '';
 
@@ -1577,7 +1590,7 @@ class Posts_Grid extends \Elementor\Widget_Base {
 								// Date
 								break;
 							case 'date': ?>
-                                <span class="obfx-grid-date">
+								<span class="obfx-grid-date">
 									<?php
 									echo ( $settings['grid_meta_remove_icons'] == '' ) ? '<i class="fa fa-calendar"></i>' : '';
 									echo get_the_date(); ?>
@@ -1596,7 +1609,7 @@ class Posts_Grid extends \Elementor\Widget_Base {
 								// Comments/Reviews
 								break;
 							case 'comments': ?>
-                                <span class="obfx-grid-comments">
+								<span class="obfx-grid-comments">
 									<?php
 									echo ( $settings['grid_meta_remove_icons'] == '' ) ? '<i class="fa fa-comment"></i>' : '';
 
@@ -1611,7 +1624,7 @@ class Posts_Grid extends \Elementor\Widget_Base {
 						endswitch;
 					} // End foreach().?>
 
-                </div>
+				</div>
 				<?php
 			}// End if().
 		}// End if().
@@ -1630,7 +1643,7 @@ class Posts_Grid extends \Elementor\Widget_Base {
 		$product  = wc_get_product( get_the_ID() );
 
 		if ( $settings['grid_post_type'] == 'product' && $settings['grid_content_price'] == 'yes' ) { ?>
-            <div class="obfx-grid-price">
+			<div class="obfx-grid-price">
 				<?php
 				$price = $product->get_price_html();
 				if ( ! empty( $price ) ) {
@@ -1643,7 +1656,7 @@ class Posts_Grid extends \Elementor\Widget_Base {
 						)
 					);
 				} ?>
-            </div>
+			</div>
 			<?php
 		}
 	}
@@ -1675,16 +1688,19 @@ class Posts_Grid extends \Elementor\Widget_Base {
 	 */
 	protected function renderContent() {
 		$settings = $this->get_settings();
-
 		if ( $settings['grid_content_hide'] !== 'yes' ) { ?>
-            <div class="entry-content obfx-grid-content">
+			<div class="entry-content obfx-grid-content">
 				<?php
-				if ( empty( $settings['grid_content_length'] ) ) {
-					the_excerpt();
+				if( $settings['grid_content_full_post'] === 'yes' ) {
+					the_content();
 				} else {
-					echo wp_trim_words( get_the_excerpt(), $settings['grid_content_length'] );
-				} ?>
-            </div>
+					if ( empty( $settings['grid_content_length'] ) ) {
+						the_excerpt();
+					} else {
+						echo wp_trim_words( get_the_excerpt(), $settings['grid_content_length'] );
+					}
+				}?>
+			</div>
 			<?php
 		}
 	}
@@ -1696,14 +1712,14 @@ class Posts_Grid extends \Elementor\Widget_Base {
 		$settings = $this->get_settings();
 
 		if ( $settings['grid_post_type'] == 'product' && $settings['grid_content_product_btn'] == 'yes' ) { ?>
-            <div class="obfx-grid-footer">
+			<div class="obfx-grid-footer">
 				<?php $this->renderAddToCart(); ?>
-            </div>
+			</div>
 		<?php } elseif ( $settings['grid_content_default_btn'] == 'yes' && ! empty( $settings['grid_content_default_btn_text'] ) ) { ?>
-            <div class="obfx-grid-footer">
-                <a href="<?php echo get_the_permalink(); ?>"
-                   title="<?php echo $settings['grid_content_default_btn_text']; ?>"><?php echo $settings['grid_content_default_btn_text']; ?></a>
-            </div>
+			<div class="obfx-grid-footer">
+				<a href="<?php echo get_the_permalink(); ?>"
+				   title="<?php echo $settings['grid_content_default_btn_text']; ?>"><?php echo $settings['grid_content_default_btn_text']; ?></a>
+			</div>
 			<?php
 		}
 	}
@@ -1718,7 +1734,7 @@ class Posts_Grid extends \Elementor\Widget_Base {
 		$i                  = 0; // counter
 
 		if ( $post_type_category ) { ?>
-            <span class="obfx-grid-categories">
+			<span class="obfx-grid-categories">
 				<?php
 				echo ( $settings['grid_meta_remove_icons'] == '' ) ? '<i class="fa fa-bookmark"></i>' : '';
 
@@ -1726,9 +1742,9 @@ class Posts_Grid extends \Elementor\Widget_Base {
 					if ( $i == $maxCategories ) {
 						break;
 					} ?>
-                    <span class="obfx-grid-categories-item">
+					<span class="obfx-grid-categories-item">
 						<a href="<?php echo get_category_link( $category->term_id ); ?>"
-                           title="<?php echo $category->name; ?>">
+						   title="<?php echo $category->name; ?>">
 							<?php echo $category->name; ?>
 						</a>
 					</span>
@@ -1750,7 +1766,7 @@ class Posts_Grid extends \Elementor\Widget_Base {
 		$i              = 0; // counter
 
 		if ( $post_type_tags ) { ?>
-            <span class="obfx-grid-tags">
+			<span class="obfx-grid-tags">
 				<?php
 				echo ( $settings['grid_meta_remove_icons'] == '' ) ? '<i class="fa fa-tags"></i>' : '';
 
@@ -1758,7 +1774,7 @@ class Posts_Grid extends \Elementor\Widget_Base {
 					if ( $i == $maxTags ) {
 						break;
 					} ?>
-                    <span class="obfx-grid-tags-item">
+					<span class="obfx-grid-tags-item">
 						<a href="<?php echo get_tag_link( $tag->term_id ); ?>" title="<?php echo $tag->name; ?>">
 							<?php echo $tag->name; ?>
 						</a>
@@ -1779,9 +1795,9 @@ class Posts_Grid extends \Elementor\Widget_Base {
 	 */
 	protected function maybe_load_widget_style() {
 		if ( \Elementor\Plugin::$instance->editor->is_edit_mode() === true && apply_filters( 'themeisle_content_forms_register_default_style', true ) ) { ?>
-            <style>
-                <?php echo file_get_contents( plugin_dir_path( dirname( dirname(__FILE__ ) ) ) . 'css/public.css' ) ?>
-            </style>
+			<style>
+				<?php echo file_get_contents( plugin_dir_path( dirname( dirname(__FILE__ ) ) ) . 'css/public.css' ) ?>
+			</style>
 			<?php
 		} else {
 			wp_enqueue_script( 'obfx-grid-js' );
