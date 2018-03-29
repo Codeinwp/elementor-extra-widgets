@@ -28,7 +28,10 @@ abstract class Premium_Placeholder extends \Elementor\Widget_Base {
 	 * @return string
 	 */
 	public function get_upsell_link() {
-		return 'https://themeisle.com/wordpress-plugins';
+		if ( ! defined( 'SIZZIFY_UPSELL_LINK' ) ) {
+			return 'https://themeisle.com/wordpress-plugins';
+		}
+		return SIZZIFY_UPSELL_LINK;
 	}
 
 	/**
@@ -91,7 +94,7 @@ abstract class Premium_Placeholder extends \Elementor\Widget_Base {
 	public function render() {
 		if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) { ?>
 			<div class="elementor-premium-placeholder" role="tablist"
-				style="position: relative;
+				 style="position: relative;
 				background: #fff;
 				color: red;
 				text-align: center;"
