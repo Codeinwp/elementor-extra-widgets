@@ -893,7 +893,7 @@ class Posts_Grid extends \Elementor\Widget_Base {
 			[
 				'name'     => 'grid_title_style_typography',
 				'scheme'   => \Elementor\Scheme_Typography::TYPOGRAPHY_1,
-				'selector' => '{{WRAPPER}} .obfx-grid-title',
+				'selector' => '{{WRAPPER}} .obfx-grid .entry-title.obfx-grid-title, {{WRAPPER}} .obfx-grid .entry-title.obfx-grid-title > a',
 			]
 		);
 
@@ -908,8 +908,8 @@ class Posts_Grid extends \Elementor\Widget_Base {
 					'value' => \Elementor\Scheme_Color::COLOR_1,
 				],
 				'selectors' => [
-					'{{WRAPPER}} .obfx-grid-title'   => 'color: {{VALUE}};',
-					'{{WRAPPER}} .obfx-grid-title a' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .obfx-grid .entry-title.obfx-grid-title'       => 'color: {{VALUE}};',
+					'{{WRAPPER}} .obfx-grid .entry-title.obfx-grid-title > a'   => 'color: {{VALUE}};',
 				],
 			]
 		);
