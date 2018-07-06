@@ -1422,7 +1422,10 @@ class Posts_Grid extends \Elementor\Widget_Base {
 
 		// Pagination.
 		if ( ! empty( $settings['grid_pagination'] ) ) {
-			$paged         = get_query_var( 'page', 1 );
+			$paged         = get_query_var( 'paged' );
+			if ( empty( $paged ) ) {
+				$paged         = get_query_var( 'page' );
+			}
 			$args['paged'] = $paged;
 		}
 
