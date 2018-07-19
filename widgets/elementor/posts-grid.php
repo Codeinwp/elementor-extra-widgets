@@ -696,7 +696,7 @@ class Posts_Grid extends \Elementor\Widget_Base {
 		);
 
 		// Columns margin.
-		$this->add_control(
+		$this->add_responsive_control(
 			'grid_style_columns_margin',
 			[
 				'label'     => __( 'Columns margin', 'textdomain' ),
@@ -718,7 +718,7 @@ class Posts_Grid extends \Elementor\Widget_Base {
 		);
 
 		// Row margin.
-		$this->add_control(
+		$this->add_responsive_control(
 			'grid_style_rows_margin',
 			[
 				'label'     => __( 'Rows margin', 'textdomain' ),
@@ -759,7 +759,7 @@ class Posts_Grid extends \Elementor\Widget_Base {
 		);
 
 		// Items internal padding.
-		$this->add_control(
+		$this->add_responsive_control(
 			'grid_items_style_padding',
 			[
 				'label'      => __( 'Padding', 'textdomain' ),
@@ -853,7 +853,7 @@ class Posts_Grid extends \Elementor\Widget_Base {
 		);
 
 		// Image margin.
-		$this->add_control(
+		$this->add_responsive_control(
 			'grid_image_style_margin',
 			[
 				'label'      => __( 'Margin', 'textdomain' ),
@@ -915,7 +915,7 @@ class Posts_Grid extends \Elementor\Widget_Base {
 		);
 
 		// Title margin.
-		$this->add_control(
+		$this->add_responsive_control(
 			'grid_title_style_margin',
 			[
 				'label'      => __( 'Margin', 'textdomain' ),
@@ -975,7 +975,7 @@ class Posts_Grid extends \Elementor\Widget_Base {
 		);
 
 		// Meta margin.
-		$this->add_control(
+		$this->add_responsive_control(
 			'grid_meta_style_margin',
 			[
 				'label'      => __( 'Margin', 'textdomain' ),
@@ -1036,7 +1036,7 @@ class Posts_Grid extends \Elementor\Widget_Base {
 		);
 
 		// Content margin
-		$this->add_control(
+		$this->add_responsive_control(
 			'grid_content_style_margin',
 			[
 				'label'      => __( 'Margin', 'textdomain' ),
@@ -1100,7 +1100,7 @@ class Posts_Grid extends \Elementor\Widget_Base {
 		);
 
 		// Price bottom margin.
-		$this->add_control(
+		$this->add_responsive_control(
 			'grid_content_price_style_margin',
 			[
 				'label'      => __( 'Margin', 'textdomain' ),
@@ -1350,7 +1350,7 @@ class Posts_Grid extends \Elementor\Widget_Base {
 		);
 
 		// Image margin.
-		$this->add_control(
+		$this->add_responsive_control(
 			'grid_pagination_style_margin',
 			[
 				'label'      => __( 'Margin', 'textdomain' ),
