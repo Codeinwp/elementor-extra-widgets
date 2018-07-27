@@ -5,7 +5,7 @@
  * @package Woo Recent Products
  */
 
-class Woo_Best_Products extends WP_Widget {
+class Woo_Best_Products extends EAW_WP_Widget {
 
 	public function __construct() {
 		$widget_ops = array(
@@ -81,7 +81,7 @@ class Woo_Best_Products extends WP_Widget {
 		echo '<h2 class="section-title">' . wp_kses_post( $args['title'] ) . '</h2>';
 
 		do_action( 'storepage_homepage_after_best_selling_products_title' );
-		echo eaw_do_shortcode(
+		echo $this->do_shortcode(
 			'best_selling_products', array(
 				'per_page' => intval( $args['limit'] ),
 				'columns'  => intval( $args['columns'] ),
@@ -90,7 +90,6 @@ class Woo_Best_Products extends WP_Widget {
 		do_action( 'storepage_homepage_after_best_selling_products' );
 
 		echo '</section>';
-		// echo '</div>';
 		echo $args['after_widget'];
 
 		if ( ! $this->is_preview() ) {

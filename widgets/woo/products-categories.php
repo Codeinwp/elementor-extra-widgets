@@ -5,7 +5,7 @@
  * @package Woo Recent Products
  */
 
-class Woo_Product_Categories extends WP_Widget {
+class Woo_Product_Categories extends EAW_WP_Widget {
 
 	public function __construct() {
 		$widget_ops = array(
@@ -85,7 +85,7 @@ class Woo_Product_Categories extends WP_Widget {
 
 		do_action( 'storepage_homepage_after_product_categories_title' );
 
-		echo eaw_do_shortcode(
+		echo $this->do_shortcode(
 			'product_categories', array(
 				'number'  => intval( $args['limit'] ),
 				'columns' => intval( $args['columns'] ),

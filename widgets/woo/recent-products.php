@@ -5,7 +5,7 @@
  * @package Woo Recent Products
  */
 
-class Woo_Recent_Products extends WP_Widget {
+class Woo_Recent_Products extends EAW_WP_Widget {
 
 	public function __construct() {
 		$widget_ops = array(
@@ -83,7 +83,7 @@ class Woo_Recent_Products extends WP_Widget {
 
 		do_action( 'elementor-addon-widgets_homepage_after_recent_products_title' );
 
-		echo eaw_do_shortcode(
+		echo $this->do_shortcode(
 			'recent_products', array(
 				'per_page' => intval( $args['limit'] ),
 				'columns'  => intval( $args['columns'] ),

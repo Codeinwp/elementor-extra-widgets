@@ -145,6 +145,7 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 				return null;
 			}
 
+			include_once( plugin_dir_path( __FILE__ ) . 'widgets/woo/class-eaw-wp-widget.php' );
 			include_once( plugin_dir_path( __FILE__ ) . 'widgets/woo/products-categories.php' );
 			include_once( plugin_dir_path( __FILE__ ) . 'widgets/woo/recent-products.php' );
 			include_once( plugin_dir_path( __FILE__ ) . 'widgets/woo/featured-products.php' );

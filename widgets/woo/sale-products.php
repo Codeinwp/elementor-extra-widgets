@@ -5,7 +5,7 @@
  * @package Woo Recent Products
  */
 
-class Woo_Sale_Products extends WP_Widget {
+class Woo_Sale_Products extends EAW_WP_Widget {
 
 	public function __construct() {
 		$widget_ops = array(
@@ -83,7 +83,7 @@ class Woo_Sale_Products extends WP_Widget {
 
 		do_action( 'storepage_homepage_after_on_sale_products_title' );
 
-		echo eaw_do_shortcode(
+		echo $this->do_shortcode(
 			'sale_products', array(
 				'per_page' => intval( $args['limit'] ),
 				'columns'  => intval( $args['columns'] ),
