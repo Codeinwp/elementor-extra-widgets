@@ -11,7 +11,7 @@ class EAW_WP_Widget extends WP_Widget {
 	/**
 	 * Call a shortcode function by tag name.
 	 *
-	 * @since  1.0.4
+	 * @since  1.0.3
 	 *
 	 * @param string $tag     The shortcode whose function to call.
 	 * @param array  $atts    The attributes to pass to the shortcode function. Optional.
