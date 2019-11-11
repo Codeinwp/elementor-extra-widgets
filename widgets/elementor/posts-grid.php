@@ -11,6 +11,7 @@
 namespace ThemeIsle\ElementorExtraWidgets;
 
 use Elementor\Controls_Manager;
+use Elementor\Group_Control_Box_Shadow;
 use Elementor\Scheme_Color;
 use Elementor\Widget_Base;
 
@@ -304,7 +305,7 @@ class Posts_Grid extends Widget_Base {
 		);
 
 		// Image height.
-		$this->add_control(
+		$this->add_responsive_control(
 			'grid_image_height',
 			[
 				'label'     => '<i class="fa fa-arrows-h"></i> ' . __( 'Image height', 'textdomain' ),
@@ -809,7 +810,7 @@ class Posts_Grid extends Widget_Base {
 
 		// Items box shadow.
 		$this->add_group_control(
-			\Elementor\Group_Control_Box_Shadow::get_type(),
+			Group_Control_Box_Shadow::get_type(),
 			[
 				'name'      => 'grid_items_style_box_shadow',
 				'selector'  => '{{WRAPPER}} .obfx-grid-col',
@@ -864,7 +865,7 @@ class Posts_Grid extends Widget_Base {
 
 		// Image box shadow.
 		$this->add_group_control(
-			\Elementor\Group_Control_Box_Shadow::get_type(),
+			Group_Control_Box_Shadow::get_type(),
 			[
 				'name'      => 'grid_image_style_box_shadow',
 				'selector'  => '{{WRAPPER}} .obfx-grid-col-image',
@@ -1236,7 +1237,7 @@ class Posts_Grid extends Widget_Base {
 
 		// Normal box shadow.
 		$this->add_group_control(
-			\Elementor\Group_Control_Box_Shadow::get_type(),
+			Group_Control_Box_Shadow::get_type(),
 			[
 				'name'      => 'grid_button_style_normal_box_shadow',
 				'selector'  => '{{WRAPPER}} .obfx-grid-footer a',
@@ -1306,7 +1307,7 @@ class Posts_Grid extends Widget_Base {
 
 		// Hover box shadow.
 		$this->add_group_control(
-			\Elementor\Group_Control_Box_Shadow::get_type(),
+			Group_Control_Box_Shadow::get_type(),
 			[
 				'name'      => 'grid_button_style_hover_box_shadow',
 				'selector'  => '{{WRAPPER}} .obfx-grid-footer a:hover',
