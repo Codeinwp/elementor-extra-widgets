@@ -11,6 +11,7 @@
 namespace ThemeIsle\ElementorExtraWidgets;
 
 use Elementor\Controls_Manager;
+use Elementor\Scheme_Color;
 use Elementor\Widget_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -926,8 +927,8 @@ class Posts_Grid extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Color', 'textdomain' ),
 				'scheme'    => [
-					'type'  => \Elementor\Scheme_Color::get_type(),
-					'value' => \Elementor\Scheme_Color::COLOR_1,
+					'type'  => Scheme_Color::get_type(),
+					'value' => Scheme_Color::COLOR_1,
 				],
 				'selectors' => [
 					'{{WRAPPER}} .obfx-grid .entry-title.obfx-grid-title'       => 'color: {{VALUE}};',
@@ -985,8 +986,8 @@ class Posts_Grid extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Color', 'textdomain' ),
 				'scheme'    => [
-					'type'  => \Elementor\Scheme_Color::get_type(),
-					'value' => \Elementor\Scheme_Color::COLOR_1,
+					'type'  => Scheme_Color::get_type(),
+					'value' => Scheme_Color::COLOR_1,
 				],
 				'selectors' => [
 					'{{WRAPPER}} .obfx-grid-meta'      => 'color: {{VALUE}};',
@@ -1045,8 +1046,8 @@ class Posts_Grid extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Color', 'textdomain' ),
 				'scheme'    => [
-					'type'  => \Elementor\Scheme_Color::get_type(),
-					'value' => \Elementor\Scheme_Color::COLOR_1,
+					'type'  => Scheme_Color::get_type(),
+					'value' => Scheme_Color::COLOR_1,
 				],
 				'selectors' => [
 					'{{WRAPPER}} .obfx-grid-content' => 'color: {{VALUE}};',
@@ -1108,8 +1109,8 @@ class Posts_Grid extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Color', 'textdomain' ),
 				'scheme'    => [
-					'type'  => \Elementor\Scheme_Color::get_type(),
-					'value' => \Elementor\Scheme_Color::COLOR_1,
+					'type'  => Scheme_Color::get_type(),
+					'value' => Scheme_Color::COLOR_1,
 				],
 				'selectors' => [
 					'{{WRAPPER}} .obfx-grid-price' => 'color: {{VALUE}};',
@@ -1197,9 +1198,10 @@ class Posts_Grid extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Text Color', 'textdomain' ),
 				'scheme'    => [
-					'type'  => \Elementor\Scheme_Color::get_type(),
-					'value' => \Elementor\Scheme_Color::COLOR_1,
+					'type'  => Scheme_Color::get_type(),
+					'value' => Scheme_Color::COLOR_1,
 				],
+				'default' => '#ffffff',
 				'separator' => '',
 				'selectors' => [
 					'{{WRAPPER}} .obfx-grid-footer a' => 'color: {{VALUE}};',
@@ -1218,8 +1220,8 @@ class Posts_Grid extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Background Color', 'textdomain' ),
 				'scheme'    => [
-					'type'  => \Elementor\Scheme_Color::get_type(),
-					'value' => \Elementor\Scheme_Color::COLOR_1,
+					'type'  => Scheme_Color::get_type(),
+					'value' => Scheme_Color::COLOR_1,
 				],
 				'separator' => '',
 				'selectors' => [
@@ -1267,8 +1269,8 @@ class Posts_Grid extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Text Color', 'textdomain' ),
 				'scheme'    => [
-					'type'  => \Elementor\Scheme_Color::get_type(),
-					'value' => \Elementor\Scheme_Color::COLOR_1,
+					'type'  => Scheme_Color::get_type(),
+					'value' => Scheme_Color::COLOR_1,
 				],
 				'separator' => '',
 				'selectors' => [
@@ -1288,8 +1290,8 @@ class Posts_Grid extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Background Color', 'textdomain' ),
 				'scheme'    => [
-					'type'  => \Elementor\Scheme_Color::get_type(),
-					'value' => \Elementor\Scheme_Color::COLOR_1,
+					'type'  => Scheme_Color::get_type(),
+					'value' => Scheme_Color::COLOR_1,
 				],
 				'separator' => '',
 				'selectors' => [
