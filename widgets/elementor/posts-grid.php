@@ -111,7 +111,7 @@ class Posts_Grid extends Widget_Base {
 	 * Get post type categories.
 	 */
 	private function grid_get_all_post_type_categories( $post_type ) {
-		$options = array();
+		$options = array( 'all' => __( 'All Categories', 'textdomain' ) );
 
 		if ( $post_type == 'post' ) {
 			$taxonomy = 'category';
@@ -193,6 +193,7 @@ class Posts_Grid extends Widget_Base {
 				'condition' => [
 					'grid_post_type' => 'post',
 				],
+                'default'   => 'all',
 			]
 		);
 
@@ -1419,7 +1420,7 @@ class Posts_Grid extends Widget_Base {
 		}
 
 		// Display posts in category.
-		if ( ! empty( $settings['grid_post_categories'] ) && $settings['grid_post_type'] == 'post' ) {
+		if ( ! empty( $settings['grid_post_categories'] ) && $settings['grid_post_categories'] !== 'all' && $settings['grid_post_type'] == 'post' ) {
 			$args['category_name'] = $settings['grid_post_categories'];
 		}
 
