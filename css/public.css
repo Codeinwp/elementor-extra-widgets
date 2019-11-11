@@ -205,6 +205,7 @@
 
 .obfx-grid-container.obfx-grid-style-list .obfx-grid-col-image {
 	width: 40%;
+	margin-bottom: 0;
 }
 
 .obfx-grid-container.obfx-grid-style-list .obfx-grid-col-content {
