@@ -222,6 +222,10 @@
 	width: 100%;
 }
 
+.obfx-grid-pagination .page-numbers{
+	display: inline-block;
+}
+
 .obfx-grid-desktop-1 .obfx-grid-wrapper {
 	width: 100%;
 }
