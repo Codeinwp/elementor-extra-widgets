@@ -75,7 +75,10 @@ class Woo_Featured_Products extends EAW_WP_Widget {
 			)
 		);
 
-		echo $args['before_widget'];
+		if ( isset( $args['before_widget'] ) ) {
+			echo $args['before_widget'];
+		}
+
 		echo '<section class="eaw-product-section woo-featured-products">';
 
 		do_action( 'storepage_homepage_before_featured_products' );
@@ -97,7 +100,9 @@ class Woo_Featured_Products extends EAW_WP_Widget {
 
 		echo '</section>';
 
-		echo $args['after_widget'];
+		if ( isset( $args['after_widget'] ) ) {
+			echo $args['after_widget'];
+		}
 
 		if ( ! $this->is_preview() ) {
 			$cache[ $args['widget_id'] ] = ob_get_flush();

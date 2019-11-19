@@ -74,7 +74,10 @@ class Woo_Best_Products extends EAW_WP_Widget {
 				'order'   => 'desc',
 			)
 		);
-		echo $args['before_widget'];
+		if ( isset( $args['before_widget'] ) ) {
+			echo $args['before_widget'];
+		}
+
 		echo '<section class="eaw-product-section woo-best-products">';
 
 		do_action( 'storepage_homepage_before_best_selling_products' );
@@ -90,7 +93,10 @@ class Woo_Best_Products extends EAW_WP_Widget {
 		do_action( 'storepage_homepage_after_best_selling_products' );
 
 		echo '</section>';
-		echo $args['after_widget'];
+
+		if ( isset( $args['after_widget'] ) ) {
+			echo $args['after_widget'];
+		}
 
 		if ( ! $this->is_preview() ) {
 			$cache[ $args['widget_id'] ] = ob_get_flush();

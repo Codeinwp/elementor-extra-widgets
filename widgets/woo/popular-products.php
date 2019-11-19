@@ -75,7 +75,10 @@ class Woo_Popular_Products extends EAW_WP_Widget {
 			)
 		);
 
-		echo $args['before_widget'];
+		if ( isset( $args['before_widget'] ) ) {
+			echo $args['before_widget'];
+		}
+
 		// echo '<div class="woo-popular-products">';
 		echo '<section class="eaw-product-section woo-popular-products">';
 
@@ -96,7 +99,10 @@ class Woo_Popular_Products extends EAW_WP_Widget {
 
 		echo '</section>';
 		// echo '</div>';
-		echo $args['after_widget'];
+
+		if ( isset( $args['after_widget'] ) ) {
+			echo $args['after_widget'];
+		}
 
 		if ( ! $this->is_preview() ) {
 			$cache[ $args['widget_id'] ] = ob_get_flush();
