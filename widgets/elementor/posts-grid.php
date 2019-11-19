@@ -12,7 +12,9 @@ namespace ThemeIsle\ElementorExtraWidgets;
 
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Box_Shadow;
+use Elementor\Group_Control_Typography;
 use Elementor\Scheme_Color;
+use Elementor\Scheme_Typography;
 use Elementor\Widget_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -302,6 +304,26 @@ class Posts_Grid extends Widget_Base {
 				'label'   => '<i class="fa fa-minus-circle"></i> ' . __( 'Hide', 'textdomain' ),
 				'type'    => Controls_Manager::SWITCHER,
 				'default' => '',
+			]
+		);
+
+		$available_size = [ 'full' => __( 'Full size', 'textdomain' ) ];
+		global $_wp_additional_image_sizes;
+		if ( ! empty( $_wp_additional_image_sizes ) ) {
+			foreach ( $_wp_additional_image_sizes as $label => $size_data ) {
+			    if ( $size_data['height'] === 0 || $size_data['width'] === 0 ){
+			        continue;
+                }
+				$available_size[ $label ] = $size_data['width'] . ' x ' . $size_data['height'];
+			}
+		}
+
+		$this->add_control(
+			'grid_image_size',
+			[
+				'label'   => __( 'Image size', 'plugin-domain' ),
+				'type'    => Controls_Manager::SELECT,
+				'options' => array_unique( $available_size ),
 			]
 		);
 
@@ -914,10 +936,10 @@ class Posts_Grid extends Widget_Base {
 
 		// Title typography.
 		$this->add_group_control(
-			\Elementor\Group_Control_Typography::get_type(),
+			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'grid_title_style_typography',
-				'scheme'   => \Elementor\Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .obfx-grid .entry-title.obfx-grid-title, {{WRAPPER}} .obfx-grid .entry-title.obfx-grid-title > a',
 			]
 		);
@@ -973,11 +995,11 @@ class Posts_Grid extends Widget_Base {
 
 		// Meta typography.
 		$this->add_group_control(
-			\Elementor\Group_Control_Typography::get_type(),
+			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'grid_meta_style_typography',
-				'scheme'   => \Elementor\Scheme_Typography::TYPOGRAPHY_1,
-				'selector' => '{{WRAPPER}} .obfx-grid-meta',
+				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
+				'selector' => '{{WRAPPER}} .obfx-grid-meta > span',
 			]
 		);
 
@@ -1030,10 +1052,10 @@ class Posts_Grid extends Widget_Base {
 
 		// Content typography.
 		$this->add_group_control(
-			\Elementor\Group_Control_Typography::get_type(),
+			Group_Control_Typography::get_type(),
 			[
 				'name'      => 'grid_content_style_typography',
-				'scheme'    => \Elementor\Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'    => Scheme_Typography::TYPOGRAPHY_1,
 				'selector'  => '{{WRAPPER}} .obfx-grid-content',
 				'condition' => [
 					'section_grid_content.grid_content_hide' => '',
@@ -1092,10 +1114,10 @@ class Posts_Grid extends Widget_Base {
 
 		// Price typography.
 		$this->add_group_control(
-			\Elementor\Group_Control_Typography::get_type(),
+			Group_Control_Typography::get_type(),
 			[
 				'name'      => 'grid_content_price_style_typography',
-				'scheme'    => \Elementor\Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'    => Scheme_Typography::TYPOGRAPHY_1,
 				'selector'  => '{{WRAPPER}} .obfx-grid-price',
 				'condition' => [
 					'section_grid_content.grid_content_price' => 'yes',
@@ -1167,10 +1189,10 @@ class Posts_Grid extends Widget_Base {
 
 		// Content typography.
 		$this->add_group_control(
-			\Elementor\Group_Control_Typography::get_type(),
+			Group_Control_Typography::get_type(),
 			[
 				'name'      => 'grid_button_style_typography',
-				'scheme'    => \Elementor\Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'    => Scheme_Typography::TYPOGRAPHY_1,
 				'selector'  => '{{WRAPPER}} .obfx-grid-footer a',
 				'condition' => [
 					'section_grid_content.grid_content_default_btn!' => '',
@@ -1551,10 +1573,11 @@ class Posts_Grid extends Widget_Base {
 		$a_tag_open = $settings['grid_image_link'] == 'yes' ? '<a href="' . get_permalink() . '" title="' .  the_title( '', '', false ) .'">' : '';
         $a_tag_close = '</a>';
 
+        $image_size = ! empty( $settings['grid_image_size'] ) ? $settings['grid_image_size'] : 'full';
         echo '<div class="obfx-grid-col-image" '. $alignment .'>';
         echo $a_tag_open;
 		the_post_thumbnail(
-			'full', array(
+			$image_size, array(
 				'class' => 'img-responsive',
 				'alt'   => get_the_title( get_post_thumbnail_id() ),
 			)

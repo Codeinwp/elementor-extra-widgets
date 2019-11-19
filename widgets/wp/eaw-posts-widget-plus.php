@@ -104,7 +104,9 @@ class EAW_Recent_Posts_Plus extends WP_Widget {
 			<?php
 			endwhile;
 
-			echo $args['after_widget'];
+			if ( isset( $args['after_widget'] ) ) {
+				echo $args['after_widget'];
+			}
 
 			wp_reset_postdata();
 
