@@ -307,6 +307,26 @@ class Posts_Grid extends Widget_Base {
 			]
 		);
 
+		$available_size = [ 'full' => __( 'Full size', 'textdomain' ) ];
+		global $_wp_additional_image_sizes;
+		if ( ! empty( $_wp_additional_image_sizes ) ) {
+			foreach ( $_wp_additional_image_sizes as $label => $size_data ) {
+			    if ( $size_data['height'] === 0 || $size_data['width'] === 0 ){
+			        continue;
+                }
+				$available_size[ $label ] = $size_data['width'] . ' x ' . $size_data['height'];
+			}
+		}
+
+		$this->add_control(
+			'grid_image_size',
+			[
+				'label'   => __( 'Image size', 'plugin-domain' ),
+				'type'    => Controls_Manager::SELECT,
+				'options' => array_unique( $available_size ),
+			]
+		);
+
 		// Image height.
 		$this->add_responsive_control(
 			'grid_image_height',
@@ -1553,10 +1573,11 @@ class Posts_Grid extends Widget_Base {
 		$a_tag_open = $settings['grid_image_link'] == 'yes' ? '<a href="' . get_permalink() . '" title="' .  the_title( '', '', false ) .'">' : '';
         $a_tag_close = '</a>';
 
+        $image_size = ! empty( $settings['grid_image_size'] ) ? $settings['grid_image_size'] : 'full';
         echo '<div class="obfx-grid-col-image" '. $alignment .'>';
         echo $a_tag_open;
 		the_post_thumbnail(
-			'full', array(
+			$image_size, array(
 				'class' => 'img-responsive',
 				'alt'   => get_the_title( get_post_thumbnail_id() ),
 			)
