@@ -7,6 +7,8 @@
 
 class Woo_Best_Products extends EAW_WP_Widget {
 
+    private static $cache = array();
+
 	public function __construct() {
 		$widget_ops = array(
 			'classname'                   => 'woo_best_products',
@@ -27,26 +29,19 @@ class Woo_Best_Products extends EAW_WP_Widget {
 	 * @param array $instance
 	 */
 	public function widget( $args, $instance ) {
-		$cache = array();
 		if ( ! $this->is_preview() ) {
-			$cache = wp_cache_get( 'woo_best_products', 'widget' );
-		}
-
-		if ( ! is_array( $cache ) ) {
-			$cache = array();
+			self::$cache = wp_cache_get( 'woo_best_products', 'widget' );
 		}
 
 		if ( ! isset( $args['widget_id'] ) ) {
 			$args['widget_id'] = $this->id;
 		}
 
-		if ( isset( $cache[ $args['widget_id'] ] ) ) {
-			echo $cache[ $args['widget_id'] ];
+		if ( isset( self::$cache[ $args['widget_id'] ] ) ) {
+			echo self::$cache[ $args['widget_id'] ];
 
 			return;
 		}
-
-		ob_start();
 
 		$title = ( ! empty( $instance['title'] ) ) ? $instance['title'] : '';
 		$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
@@ -67,6 +62,7 @@ class Woo_Best_Products extends EAW_WP_Widget {
 
 		$args = apply_filters(
 			'elementor-addon-widgets_product_categories_args', array(
+                'widget_id' => $args['widget_id'],
 				'limit'   => $limit,
 				'columns' => $columns,
 				'title'   => $title,
@@ -74,6 +70,9 @@ class Woo_Best_Products extends EAW_WP_Widget {
 				'order'   => 'desc',
 			)
 		);
+
+		ob_start();
+
 		if ( isset( $args['before_widget'] ) ) {
 			echo $args['before_widget'];
 		}
@@ -99,8 +98,8 @@ class Woo_Best_Products extends EAW_WP_Widget {
 		}
 
 		if ( ! $this->is_preview() ) {
-			$cache[ $args['widget_id'] ] = ob_get_flush();
-			wp_cache_set( 'woo_best_products', $cache, 'widget' );
+			self::$cache[ $args['widget_id'] ] = ob_get_flush();
+			wp_cache_set( 'woo_best_products', self::$cache, 'widget' );
 		} else {
 			ob_end_flush();
 		}
