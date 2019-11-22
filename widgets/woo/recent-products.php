@@ -66,10 +66,14 @@ class Woo_Recent_Products extends EAW_WP_Widget {
 		}
 
 		$args = apply_filters(
-			'elementor-addon-widgets_product_categories_args', array(
-				'limit'   => $limit,
-				'columns' => $columns,
-				'title'   => $title,
+			'elementor-addon-widgets_product_categories_args',
+			array_merge(
+				array(
+					'limit'     => $limit,
+					'columns'   => $columns,
+					'title'     => $title,
+				),
+				$args
 			)
 		);
 
