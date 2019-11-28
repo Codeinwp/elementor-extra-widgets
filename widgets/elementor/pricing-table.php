@@ -9,16 +9,21 @@
  */
 namespace ThemeIsle\ElementorExtraWidgets;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-} // End if().
+use Elementor\Controls_Manager;
+use Elementor\Group_Control_Background;
+use Elementor\Group_Control_Box_Shadow;
+use Elementor\Group_Control_Typography;
+use Elementor\Plugin;
+use Elementor\Scheme_Color;
+use Elementor\Scheme_Typography;
+use Elementor\Widget_Base;
 
 /**
  * Class Pricing_Table
  *
  * @package ThemeIsle\ElementorExtraWidgets
  */
-class Pricing_Table extends \Elementor\Widget_Base {
+class Pricing_Table extends Widget_Base {
 
 	/**
 	 * Widget title.
@@ -45,6 +50,15 @@ class Pricing_Table extends \Elementor\Widget_Base {
 	 */
 	public function get_name() {
 		return 'obfx-pricing-table';
+	}
+
+	/**
+	 * Retrieve the list of styles the pricing table widget depended on.
+	 *
+	 * @return array Widget scripts dependencies.
+	 */
+	public function get_style_depends() {
+		return [ 'eaw-elementor' ];
 	}
 
 	/**
@@ -93,7 +107,7 @@ class Pricing_Table extends \Elementor\Widget_Base {
 		$this->add_control(
 			'title',
 			[
-				'type'        => \Elementor\Controls_Manager::TEXT,
+				'type'        => Controls_Manager::TEXT,
 				'label'       => __( 'Title', 'textdomain' ),
 				'placeholder' => __( 'Title', 'textdomain' ),
 				'default'     => __( 'Pricing Plan', 'textdomain' ),
@@ -103,7 +117,7 @@ class Pricing_Table extends \Elementor\Widget_Base {
 		$this->add_control(
 			'title_tag',
 			[
-				'type'    => \Elementor\Controls_Manager::SELECT,
+				'type'    => Controls_Manager::SELECT,
 				'label'   => __( 'Title HTML tag', 'textdomain' ),
 				'default' => 'h3',
 				'options' => [
@@ -121,7 +135,7 @@ class Pricing_Table extends \Elementor\Widget_Base {
 		$this->add_control(
 			'subtitle',
 			[
-				'type'        => \Elementor\Controls_Manager::TEXT,
+				'type'        => Controls_Manager::TEXT,
 				'label'       => __( 'Subtitle', 'textdomain' ),
 				'placeholder' => __( 'Subtitle', 'textdomain' ),
 				'default'     => __( 'Description', 'textdomain' ),
@@ -131,7 +145,7 @@ class Pricing_Table extends \Elementor\Widget_Base {
 		$this->add_control(
 			'subtitle_tag',
 			[
-				'type'    => \Elementor\Controls_Manager::SELECT,
+				'type'    => Controls_Manager::SELECT,
 				'label'   => __( 'Subtitle HTML Tag', 'textdomain' ),
 				'default' => 'p',
 				'options' => [
@@ -162,7 +176,7 @@ class Pricing_Table extends \Elementor\Widget_Base {
 		$this->add_control(
 			'price_tag_text',
 			[
-				'type'        => \Elementor\Controls_Manager::TEXT,
+				'type'        => Controls_Manager::TEXT,
 				'label'       => __( 'Price', 'textdomain' ),
 				'placeholder' => __( 'Price', 'textdomain' ),
 				'default'     => __( '50', 'textdomain' ),
@@ -173,7 +187,7 @@ class Pricing_Table extends \Elementor\Widget_Base {
 		$this->add_control(
 			'price_tag_currency',
 			[
-				'type'        => \Elementor\Controls_Manager::TEXT,
+				'type'        => Controls_Manager::TEXT,
 				'label'       => __( 'Currency', 'textdomain' ),
 				'placeholder' => __( 'Currency', 'textdomain' ),
 				'default'     => __( '$', 'textdomain' ),
@@ -183,7 +197,7 @@ class Pricing_Table extends \Elementor\Widget_Base {
 		$this->add_control(
 			'price_tag_currency_position',
 			[
-				'type'    => \Elementor\Controls_Manager::SELECT,
+				'type'    => Controls_Manager::SELECT,
 				'label'   => __( 'Currency Position', 'textdomain' ),
 				'default' => 'left',
 				'options' => [
@@ -196,7 +210,7 @@ class Pricing_Table extends \Elementor\Widget_Base {
 		$this->add_control(
 			'price_tag_period',
 			[
-				'type'        => \Elementor\Controls_Manager::TEXT,
+				'type'        => Controls_Manager::TEXT,
 				'label'       => __( 'Period', 'textdomain' ),
 				'placeholder' => __( '/month', 'textdomain' ),
 				'default'     => __( '/month', 'textdomain' ),
@@ -221,7 +235,7 @@ class Pricing_Table extends \Elementor\Widget_Base {
 			'feature_list',
 			[
 				'label'       => __( 'Plan Features', 'textdomain' ),
-				'type'        => \Elementor\Controls_Manager::REPEATER,
+				'type'        => Controls_Manager::REPEATER,
 				'default'     => [
 					[
 						'accent' => __( 'First', 'textdomain' ),
@@ -238,7 +252,7 @@ class Pricing_Table extends \Elementor\Widget_Base {
 				],
 				'fields'      => [
 					[
-						'type'        => \Elementor\Controls_Manager::TEXT,
+						'type'        => Controls_Manager::TEXT,
 						'name'        => 'accent',
 						'label'       => __( 'Accented Text', 'textdomain' ),
 						'description' => __( 'Appears before feature text', 'textdomain' ),
@@ -246,20 +260,23 @@ class Pricing_Table extends \Elementor\Widget_Base {
 						'default'     => __( 'Accent', 'textdomain' ),
 					],
 					[
-						'type'        => \Elementor\Controls_Manager::TEXT,
+						'type'        => Controls_Manager::TEXT,
 						'name'        => 'text',
 						'label'       => __( 'Text', 'textdomain' ),
 						'label_block' => true,
 						'placeholder' => __( 'Plan Features', 'textdomain' ),
 						'default'     => __( 'Feature', 'textdomain' ),
 					],
-					[
-						'type'        => \Elementor\Controls_Manager::ICON,
-						'name'        => 'feature_icon',
-						'label'       => __( 'Icon', 'textdomain' ),
-						'label_block' => true,
-						'default'     => 'fa fa-star',
-					],
+                    [
+                        'type' => Controls_Manager::ICONS,
+                        'name'        => 'feature_icon_new',
+                        'label'       => __( 'Icon', 'textdomain' ),
+                        'default' => [
+	                        'value' => 'fas fa-star',
+	                        'library' => 'solid',
+                        ],
+                        'fa4compatibility' => 'feature_icon',
+                    ],
 				],
 				'title_field' => '{{ accent + " " + text }}',
 			]
@@ -269,7 +286,7 @@ class Pricing_Table extends \Elementor\Widget_Base {
 			'features_align',
 			[
 				'label'     => __( 'Alignment', 'textdomain' ),
-				'type'      => \Elementor\Controls_Manager::CHOOSE,
+				'type'      => Controls_Manager::CHOOSE,
 				'options'   => [
 					'left'    => [
 						'title' => __( 'Left', 'textdomain' ),
@@ -312,7 +329,7 @@ class Pricing_Table extends \Elementor\Widget_Base {
 		$this->add_control(
 			'button_text',
 			[
-				'type'        => \Elementor\Controls_Manager::TEXT,
+				'type'        => Controls_Manager::TEXT,
 				'label'       => __( 'Text', 'textdomain' ),
 				'placeholder' => __( 'Buy Now', 'textdomain' ),
 				'default'     => __( 'Buy Now', 'textdomain' ),
@@ -322,26 +339,25 @@ class Pricing_Table extends \Elementor\Widget_Base {
 		$this->add_control(
 			'button_link',
 			[
-				'type'        => \Elementor\Controls_Manager::URL,
+				'type'        => Controls_Manager::URL,
 				'label'       => __( 'Link', 'textdomain' ),
 				'placeholder' => __( 'https://example.com', 'textdomain' ),
 			]
 		);
 
 		$this->add_control(
-			'button_icon',
+			'button_icon_new',
 			[
-				'type'        => \Elementor\Controls_Manager::ICON,
-				'label'       => __( 'Icon', 'textdomain' ),
-				'label_block' => true,
-				'default'     => '',
+				'type'             => Controls_Manager::ICONS,
+				'label'            => __( 'Icon', 'textdomain' ),
+				'fa4compatibility' => 'button_icon',
 			]
 		);
 
 		$this->add_control(
 			'button_icon_align',
 			[
-				'type'      => \Elementor\Controls_Manager::SELECT,
+				'type'      => Controls_Manager::SELECT,
 				'label'     => __( 'Icon Position', 'textdomain' ),
 				'default'   => 'left',
 				'options'   => [
@@ -357,7 +373,7 @@ class Pricing_Table extends \Elementor\Widget_Base {
 		$this->add_control(
 			'button_icon_indent',
 			[
-				'type'      => \Elementor\Controls_Manager::SLIDER,
+				'type'      => Controls_Manager::SLIDER,
 				'label'     => __( 'Icon Spacing', 'textdomain' ),
 				'range'     => [
 					'px' => [
@@ -384,7 +400,7 @@ class Pricing_Table extends \Elementor\Widget_Base {
 			'section_header_style',
 			[
 				'label' => __( 'Header', 'textdomain' ),
-				'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
@@ -392,7 +408,7 @@ class Pricing_Table extends \Elementor\Widget_Base {
 			'header_padding',
 			[
 				'label'      => __( 'Header Padding', 'textdomain' ),
-				'type'       => \Elementor\Controls_Manager::DIMENSIONS,
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [
 					'{{WRAPPER}} .obfx-title-wrapper' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
@@ -403,11 +419,11 @@ class Pricing_Table extends \Elementor\Widget_Base {
 		$this->add_control(
 			'plan_title_color',
 			[
-				'type'      => \Elementor\Controls_Manager::COLOR,
+				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Title Color', 'textdomain' ),
 				'scheme'    => [
-					'type'  => \Elementor\Scheme_Color::get_type(),
-					'value' => \Elementor\Scheme_Color::COLOR_1,
+					'type'  => Scheme_Color::get_type(),
+					'value' => Scheme_Color::COLOR_1,
 				],
 				'default'   => '#464959',
 				'selectors' => [
@@ -417,10 +433,10 @@ class Pricing_Table extends \Elementor\Widget_Base {
 		);
 
 		$this->add_group_control(
-			\Elementor\Group_Control_Typography::get_type(),
+			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'plan_title_typography',
-				'scheme'   => \Elementor\Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .obfx-pricing-table-title',
 			]
 		);
@@ -428,11 +444,11 @@ class Pricing_Table extends \Elementor\Widget_Base {
 		$this->add_control(
 			'plan_subtitle_color',
 			[
-				'type'      => \Elementor\Controls_Manager::COLOR,
+				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Subtitle Color', 'textdomain' ),
 				'scheme'    => [
-					'type'  => \Elementor\Scheme_Color::get_type(),
-					'value' => \Elementor\Scheme_Color::COLOR_1,
+					'type'  => Scheme_Color::get_type(),
+					'value' => Scheme_Color::COLOR_1,
 				],
 				'default'   => '#60647d',
 				'selectors' => [
@@ -442,16 +458,16 @@ class Pricing_Table extends \Elementor\Widget_Base {
 		);
 
 		$this->add_group_control(
-			\Elementor\Group_Control_Typography::get_type(),
+			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'plan_subtitle_typography',
-				'scheme'   => \Elementor\Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .obfx-pricing-table-subtitle',
 			]
 		);
 
 		$this->add_group_control(
-			\Elementor\Group_Control_Background::get_type(),
+			Group_Control_Background::get_type(),
 			[
 				'name'     => 'heading_section_bg',
 				'label'    => __( 'Section Background', 'textdomain' ),
@@ -470,14 +486,14 @@ class Pricing_Table extends \Elementor\Widget_Base {
 			'section_price_box',
 			[
 				'label' => __( 'Price Tag', 'textdomain' ),
-				'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
 		$this->add_responsive_control(
 			'price_box_padding',
 			[
-				'type'       => \Elementor\Controls_Manager::DIMENSIONS,
+				'type'       => Controls_Manager::DIMENSIONS,
 				'label'      => __( 'Price Box Padding', 'textdomain' ),
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [
@@ -487,7 +503,7 @@ class Pricing_Table extends \Elementor\Widget_Base {
 		);
 
 		$this->add_group_control(
-			\Elementor\Group_Control_Background::get_type(),
+			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'pricing_section_bg',
 				'label'    => __( 'Section Background', 'textdomain' ),
@@ -500,7 +516,7 @@ class Pricing_Table extends \Elementor\Widget_Base {
 			'price_tag_heading_currency',
 			[
 				'label'     => __( 'Currency', 'textdomain' ),
-				'type'      => \Elementor\Controls_Manager::HEADING,
+				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
 		);
@@ -509,10 +525,10 @@ class Pricing_Table extends \Elementor\Widget_Base {
 			'currency_color',
 			[
 				'label'     => __( 'Currency Color', 'textdomain' ),
-				'type'      => \Elementor\Controls_Manager::COLOR,
+				'type'      => Controls_Manager::COLOR,
 				'scheme'    => [
-					'type'  => \Elementor\Scheme_Color::get_type(),
-					'value' => \Elementor\Scheme_Color::COLOR_1,
+					'type'  => Scheme_Color::get_type(),
+					'value' => Scheme_Color::COLOR_1,
 				],
 				'default'   => '#60647d',
 				'selectors' => [
@@ -522,10 +538,10 @@ class Pricing_Table extends \Elementor\Widget_Base {
 		);
 
 		$this->add_group_control(
-			\Elementor\Group_Control_Typography::get_type(),
+			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'currency_typography',
-				'scheme'   => \Elementor\Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .obfx-price-currency',
 			]
 		);
@@ -534,7 +550,7 @@ class Pricing_Table extends \Elementor\Widget_Base {
 			'price_tag_heading_price',
 			[
 				'label'     => __( 'Price', 'textdomain' ),
-				'type'      => \Elementor\Controls_Manager::HEADING,
+				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
 		);
@@ -543,10 +559,10 @@ class Pricing_Table extends \Elementor\Widget_Base {
 			'price_text_color',
 			[
 				'label'     => __( 'Price Color', 'textdomain' ),
-				'type'      => \Elementor\Controls_Manager::COLOR,
+				'type'      => Controls_Manager::COLOR,
 				'scheme'    => [
-					'type'  => \Elementor\Scheme_Color::get_type(),
-					'value' => \Elementor\Scheme_Color::COLOR_1,
+					'type'  => Scheme_Color::get_type(),
+					'value' => Scheme_Color::COLOR_1,
 				],
 				'default'   => '#60647d',
 				'selectors' => [
@@ -556,10 +572,10 @@ class Pricing_Table extends \Elementor\Widget_Base {
 		);
 
 		$this->add_group_control(
-			\Elementor\Group_Control_Typography::get_type(),
+			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'price_typography',
-				'scheme'   => \Elementor\Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .obfx-price',
 			]
 		);
@@ -568,7 +584,7 @@ class Pricing_Table extends \Elementor\Widget_Base {
 			'price_tag_heading_period',
 			[
 				'label'     => __( 'Period', 'textdomain' ),
-				'type'      => \Elementor\Controls_Manager::HEADING,
+				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
 		);
@@ -577,10 +593,10 @@ class Pricing_Table extends \Elementor\Widget_Base {
 			'period_color',
 			[
 				'label'     => __( 'Period Color', 'textdomain' ),
-				'type'      => \Elementor\Controls_Manager::COLOR,
+				'type'      => Controls_Manager::COLOR,
 				'scheme'    => [
-					'type'  => \Elementor\Scheme_Color::get_type(),
-					'value' => \Elementor\Scheme_Color::COLOR_1,
+					'type'  => Scheme_Color::get_type(),
+					'value' => Scheme_Color::COLOR_1,
 				],
 				'default'   => '#60647d',
 				'selectors' => [
@@ -590,10 +606,10 @@ class Pricing_Table extends \Elementor\Widget_Base {
 		);
 
 		$this->add_group_control(
-			\Elementor\Group_Control_Typography::get_type(),
+			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'price_sub_text_typography',
-				'scheme'   => \Elementor\Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .obfx-pricing-period',
 			]
 		);
@@ -608,12 +624,12 @@ class Pricing_Table extends \Elementor\Widget_Base {
 			'section_features_style',
 			[
 				'label' => __( 'Features', 'textdomain' ),
-				'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
 		$this->add_group_control(
-			\Elementor\Group_Control_Background::get_type(),
+			Group_Control_Background::get_type(),
 			[
 				'name'     => 'features_section_bg',
 				'label'    => __( 'Section Background', 'textdomain' ),
@@ -625,7 +641,7 @@ class Pricing_Table extends \Elementor\Widget_Base {
 		$this->add_responsive_control(
 			'features_box_padding',
 			[
-				'type'       => \Elementor\Controls_Manager::DIMENSIONS,
+				'type'       => Controls_Manager::DIMENSIONS,
 				'label'      => __( 'Features List Padding', 'textdomain' ),
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [
@@ -638,7 +654,7 @@ class Pricing_Table extends \Elementor\Widget_Base {
 			'features_accented_heading',
 			[
 				'label'     => __( 'Accented', 'textdomain' ),
-				'type'      => \Elementor\Controls_Manager::HEADING,
+				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
 		);
@@ -646,11 +662,11 @@ class Pricing_Table extends \Elementor\Widget_Base {
 		$this->add_control(
 			'features_accented_text_color',
 			[
-				'type'      => \Elementor\Controls_Manager::COLOR,
+				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Accented Color', 'textdomain' ),
 				'scheme'    => [
-					'type'  => \Elementor\Scheme_Color::get_type(),
-					'value' => \Elementor\Scheme_Color::COLOR_1,
+					'type'  => Scheme_Color::get_type(),
+					'value' => Scheme_Color::COLOR_1,
 				],
 				'default'   => '#60647d',
 				'selectors' => [
@@ -660,10 +676,10 @@ class Pricing_Table extends \Elementor\Widget_Base {
 		);
 
 		$this->add_group_control(
-			\Elementor\Group_Control_Typography::get_type(),
+			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'features_accented_typography',
-				'scheme'   => \Elementor\Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .obfx-pricing-table-accented',
 			]
 		);
@@ -672,7 +688,7 @@ class Pricing_Table extends \Elementor\Widget_Base {
 			'features_features_heading',
 			[
 				'label'     => __( 'Features', 'textdomain' ),
-				'type'      => \Elementor\Controls_Manager::HEADING,
+				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
 		);
@@ -681,10 +697,10 @@ class Pricing_Table extends \Elementor\Widget_Base {
 			'features_text_color',
 			[
 				'label'     => __( 'Features Color', 'textdomain' ),
-				'type'      => \Elementor\Controls_Manager::COLOR,
+				'type'      => Controls_Manager::COLOR,
 				'scheme'    => [
-					'type'  => \Elementor\Scheme_Color::get_type(),
-					'value' => \Elementor\Scheme_Color::COLOR_1,
+					'type'  => Scheme_Color::get_type(),
+					'value' => Scheme_Color::COLOR_1,
 				],
 				'default'   => '#b1b3c0',
 				'selectors' => [
@@ -694,10 +710,10 @@ class Pricing_Table extends \Elementor\Widget_Base {
 		);
 
 		$this->add_group_control(
-			\Elementor\Group_Control_Typography::get_type(),
+			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'features_features_typography',
-				'scheme'   => \Elementor\Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .obfx-pricing-table-feature',
 			]
 		);
@@ -706,7 +722,7 @@ class Pricing_Table extends \Elementor\Widget_Base {
 			'features_icons_heading',
 			[
 				'label'     => __( 'Icons', 'textdomain' ),
-				'type'      => \Elementor\Controls_Manager::HEADING,
+				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
 		);
@@ -715,10 +731,10 @@ class Pricing_Table extends \Elementor\Widget_Base {
 			'features_icon_color',
 			[
 				'label'     => __( 'Icon Color', 'textdomain' ),
-				'type'      => \Elementor\Controls_Manager::COLOR,
+				'type'      => Controls_Manager::COLOR,
 				'scheme'    => [
-					'type'  => \Elementor\Scheme_Color::get_type(),
-					'value' => \Elementor\Scheme_Color::COLOR_1,
+					'type'  => Scheme_Color::get_type(),
+					'value' => Scheme_Color::COLOR_1,
 				],
 				'default'   => '#b1b3c0',
 				'selectors' => [
@@ -727,10 +743,30 @@ class Pricing_Table extends \Elementor\Widget_Base {
 			]
 		);
 
+		$this->add_responsive_control(
+			'features_icon_size',
+			[
+				'type'      => Controls_Manager::SLIDER,
+				'label'     => __( 'Icon Size', 'textdomain' ),
+				'default'   => [
+					'size' => 16,
+				],
+				'range'     => [
+					'px' => [
+						'max' => 100,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} i.obfx-pricing-table-feature-icon' => 'font-size: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} img.obfx-pricing-table-feature-icon' => 'width: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
 		$this->add_control(
 			'features_icon_indent',
 			[
-				'type'      => \Elementor\Controls_Manager::SLIDER,
+				'type'      => Controls_Manager::SLIDER,
 				'label'     => __( 'Icon Spacing', 'textdomain' ),
 				'default'   => [
 					'size' => 5,
@@ -757,12 +793,12 @@ class Pricing_Table extends \Elementor\Widget_Base {
 			'section_button_style',
 			[
 				'label' => __( 'Button', 'textdomain' ),
-				'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
 		$this->add_group_control(
-			\Elementor\Group_Control_Background::get_type(), [
+			Group_Control_Background::get_type(), [
 				'name'     => 'button_section_bg',
 				'label'    => __( 'Section Background', 'textdomain' ),
 				'types'    => [ 'classic', 'gradient' ],
@@ -771,11 +807,11 @@ class Pricing_Table extends \Elementor\Widget_Base {
 		);
 
 		$this->add_group_control(
-			\Elementor\Group_Control_Typography::get_type(),
+			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'typography',
 				'label'    => __( 'Typography', 'textdomain' ),
-				'scheme'   => \Elementor\Scheme_Typography::TYPOGRAPHY_4,
+				'scheme'   => Scheme_Typography::TYPOGRAPHY_4,
 				'selector' => '{{WRAPPER}} .obfx-pricing-table-button-wrapper',
 			]
 		);
@@ -784,7 +820,7 @@ class Pricing_Table extends \Elementor\Widget_Base {
 			'border_radius',
 			[
 				'label'      => __( 'Border Radius', 'textdomain' ),
-				'type'       => \Elementor\Controls_Manager::DIMENSIONS,
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
 					'{{WRAPPER}} .obfx-pricing-table-button' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
@@ -796,10 +832,30 @@ class Pricing_Table extends \Elementor\Widget_Base {
 			'text_padding',
 			[
 				'label'      => __( 'Padding', 'textdomain' ),
-				'type'       => \Elementor\Controls_Manager::DIMENSIONS,
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [
 					'{{WRAPPER}} .obfx-pricing-table-button' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'button_icon_size',
+			[
+				'type'      => Controls_Manager::SLIDER,
+				'label'     => __( 'Icon Size', 'textdomain' ),
+				'default'   => [
+					'size' => 16,
+				],
+				'range'     => [
+					'px' => [
+						'max' => 100,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .obfx-pricing-table-button-wrapper i'   => 'font-size: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .obfx-pricing-table-button-wrapper img' => 'width: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -826,11 +882,11 @@ class Pricing_Table extends \Elementor\Widget_Base {
 		$this->add_control(
 			'button_text_color',
 			[
-				'type'      => \Elementor\Controls_Manager::COLOR,
+				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Text Color', 'textdomain' ),
 				'scheme'    => [
-					'type'  => \Elementor\Scheme_Color::get_type(),
-					'value' => \Elementor\Scheme_Color::COLOR_1,
+					'type'  => Scheme_Color::get_type(),
+					'value' => Scheme_Color::COLOR_1,
 				],
 				'default'   => '#fff',
 				'selectors' => [
@@ -841,11 +897,11 @@ class Pricing_Table extends \Elementor\Widget_Base {
 		$this->add_control(
 			'button_bg_color',
 			[
-				'type'      => \Elementor\Controls_Manager::COLOR,
+				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Background Color', 'textdomain' ),
 				'scheme'    => [
-					'type'  => \Elementor\Scheme_Color::get_type(),
-					'value' => \Elementor\Scheme_Color::COLOR_1,
+					'type'  => Scheme_Color::get_type(),
+					'value' => Scheme_Color::COLOR_1,
 				],
 				'default'   => '#93c64f',
 				'selectors' => [
@@ -855,7 +911,7 @@ class Pricing_Table extends \Elementor\Widget_Base {
 		);
 
 		$this->add_group_control(
-			\Elementor\Group_Control_Box_Shadow::get_type(),
+			Group_Control_Box_Shadow::get_type(),
 			[
 				'name'      => 'button_box_shadow',
 				'selector'  => '{{WRAPPER}} .obfx-pricing-table-button',
@@ -875,11 +931,11 @@ class Pricing_Table extends \Elementor\Widget_Base {
 		$this->add_control(
 			'button_hover_text_color',
 			[
-				'type'      => \Elementor\Controls_Manager::COLOR,
+				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Text Color', 'textdomain' ),
 				'scheme'    => [
-					'type'  => \Elementor\Scheme_Color::get_type(),
-					'value' => \Elementor\Scheme_Color::COLOR_1,
+					'type'  => Scheme_Color::get_type(),
+					'value' => Scheme_Color::COLOR_1,
 				],
 				'default'   => '#fff',
 				'selectors' => [
@@ -890,11 +946,11 @@ class Pricing_Table extends \Elementor\Widget_Base {
 		$this->add_control(
 			'button_hover_bg_color',
 			[
-				'type'      => \Elementor\Controls_Manager::COLOR,
+				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Background Color', 'textdomain' ),
 				'scheme'    => [
-					'type'  => \Elementor\Scheme_Color::get_type(),
-					'value' => \Elementor\Scheme_Color::COLOR_1,
+					'type'  => Scheme_Color::get_type(),
+					'value' => Scheme_Color::COLOR_1,
 				],
 				'default'   => '#74c600',
 				'selectors' => [
@@ -904,7 +960,7 @@ class Pricing_Table extends \Elementor\Widget_Base {
 		);
 
 		$this->add_group_control(
-			\Elementor\Group_Control_Box_Shadow::get_type(),
+			Group_Control_Box_Shadow::get_type(),
 			[
 				'name'      => 'button_hover_box_shadow',
 				'selector'  => '{{WRAPPER}} .obfx-pricing-table-button:hover',
@@ -916,7 +972,7 @@ class Pricing_Table extends \Elementor\Widget_Base {
 			'background_hover_transition',
 			[
 				'label'       => __( 'Transition Duration', 'textdomain' ),
-				'type'        => \Elementor\Controls_Manager::SLIDER,
+				'type'        => Controls_Manager::SLIDER,
 				'default'     => [
 					'size' => 0.3,
 				],
@@ -944,12 +1000,10 @@ class Pricing_Table extends \Elementor\Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings();
 
-		$this->maybe_load_widget_style();
-
 		$this->add_render_attribute( 'title', 'class', 'obfx-pricing-table-title' );
 		$this->add_render_attribute( 'subtitle', 'class', 'obfx-pricing-table-subtitle' );
 		$this->add_render_attribute( 'button', 'class', 'obfx-pricing-table-button' );
-		$this->add_render_attribute( 'button_icon', 'class', $settings['button_icon'] );
+//		$this->add_render_attribute( 'button_icon', 'class', $settings['button_icon'] );
 		$this->add_render_attribute( 'button_icon_align', 'class', 'obfx-button-icon-align-' . $settings['button_icon_align'] );
 		if ( ! empty( $settings['button_link']['url'] ) ) {
 			$this->add_render_attribute( 'button', 'href', $settings['button_link']['url'] );
@@ -1019,9 +1073,17 @@ class Pricing_Table extends \Elementor\Widget_Base {
 			$output .= '<ul class="obfx-feature-list">';
 			foreach ( $settings['feature_list'] as $feature ) {
 				$output .= '<li>';
-				if ( ! empty( $feature['feature_icon'] ) ) {
+
+				if ( empty($feature['feature_icon']) || isset($feature['__fa4_migrated']['feature_icon_new']) ) {
+					if( isset($feature['feature_icon_new']['value']['url']) ) {
+						$output .= '<img class="obfx-pricing-table-feature-icon" src="'.esc_url( $feature['feature_icon_new']['value']['url'] ).'" alt="'.esc_attr(get_post_meta($feature['feature_icon_new']['value']['id'], '_wp_attachment_image_alt', true)).'"/>';
+                    } else {
+						$output .= '<i class="obfx-pricing-table-feature-icon '.esc_attr( $feature['feature_icon_new']['value'] ).'" aria-hidden="true"></i>';
+                    }
+                } else {
 					$output .= '<i class="obfx-pricing-table-feature-icon ' . esc_attr( $feature['feature_icon'] ) . '"></i>';
-				}
+                }
+
 				if ( ! empty( $feature['accent'] ) ) {
 					$output .= '<span class="obfx-pricing-table-accented">' . esc_html( $feature['accent'] ) . '</span>';
 					$output .= ' ';
@@ -1039,16 +1101,17 @@ class Pricing_Table extends \Elementor\Widget_Base {
 
 			$output .= '<a ' . $this->get_render_attribute_string( 'button' ) . '>';
 
-			if ( ! empty( $settings['button_icon'] ) && ( $settings['button_icon_align'] == 'left' ) ) {
-				$output .= '<span ' . $this->get_render_attribute_string( 'button_icon_align' ) . ' >';
-				$output .= '<i ' . $this->get_render_attribute_string( 'button_icon' ) . '></i>';
+
+
+
+			if ( $settings['button_icon_align'] == 'left' ) {
+				$output .= $this->display_button_icon( $settings );
 			}
 
 			$output .= '<span class="elementor-button-text">' . esc_html( $settings['button_text'] ) . '</span>';
 
-			if ( ! empty( $settings['button_icon'] ) && ( $settings['button_icon_align'] == 'right' ) ) {
-				$output .= '<span ' . $this->get_render_attribute_string( 'button_icon_align' ) . ' >';
-				$output .= '<i ' . $this->get_render_attribute_string( 'button_icon' ) . '></i>';
+			if ( $settings['button_icon_align'] == 'right' ) {
+				$output .= $this->display_button_icon( $settings );
 			}
 
 			$output .= '</a>';
@@ -1060,21 +1123,24 @@ class Pricing_Table extends \Elementor\Widget_Base {
 		echo $output;
 	}
 
-	/**
-	 * Load the widget style dynamically if it is a widget preview
-	 * or enqueue style and scripts if not
-	 *
-	 * This way we are sure that the assets files are loaded only when this block is present in page.
-	 */
-	protected function maybe_load_widget_style() {
-		if ( \Elementor\Plugin::$instance->editor->is_edit_mode() === true && apply_filters( 'themeisle_content_forms_register_default_style', true ) ) { ?>
-			<style>
-				<?php echo file_get_contents( plugin_dir_path( dirname( dirname(__FILE__ ) ) ) . 'css/public.css' ) ?>
-			</style>
-			<?php
+	private function display_button_icon($settings) {
+		$output = '';
+		if ( empty( $settings['button_icon'] ) || isset( $settings['__fa4_migrated']['button_icon_new'] ) ) {
+			if ( isset( $settings['button_icon_new']['value']['url'] ) ) {
+				$output .= '<span ' . $this->get_render_attribute_string( 'button_icon_align' ) . ' >';
+				$output .= '<img src="' . esc_url( $settings['button_icon_new']['value']['url'] ) . '" alt="' . esc_attr( get_post_meta( $settings['button_icon_new']['value']['id'], '_wp_attachment_image_alt', true ) ) . '"/>';
+				$output .= '</span>';
+			} else {
+				$output .= '<span ' . $this->get_render_attribute_string( 'button_icon_align' ) . ' >';
+				$output .= '<i class="' . esc_attr( $settings['button_icon_new']['value'] ) . '" aria-hidden="true"></i>';
+				$output .= '</span>';
+			}
 		} else {
-			wp_enqueue_style('eaw-elementor');
+			$output .= '<span ' . $this->get_render_attribute_string( 'button_icon_align' ) . ' >';
+			$output .= '<i class="' . esc_attr( $settings['button_icon'] ) . '"></i>';
+			$output .= '</span>';
 		}
+		return $output;
 	}
 }
 

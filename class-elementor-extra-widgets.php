@@ -10,6 +10,8 @@
 
 namespace ThemeIsle;
 
+use Elementor\Plugin;
+
 if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 
 	class ElementorExtraWidgets {
@@ -28,14 +30,14 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 		 * Defines the library behaviour
 		 */
 		protected function init() {
-			add_action( 'elementor/init', array( $this, 'add_elementor_category' ) );
-			add_action( 'elementor/frontend/after_register_scripts', array( $this, 'register_assets' ) );
-			add_action( 'elementor/preview/enqueue_scripts', array( $this, 'register_assets' ) );
+
+			add_action( 'elementor/frontend/after_enqueue_styles', array( $this, 'register_styles' ) );
+			add_action( 'elementor/frontend/after_register_scripts', [ $this, 'register_scripts' ] );
+
+			add_action( 'elementor/elements/categories_registered', array( $this, 'add_elementor_category' ) );
 
 			add_action( 'widgets_init', array( $this, 'register_woo_widgets' ) );
 			add_action( 'widgets_init', array( $this, 'register_posts_widgets' ) );
-
-			add_action( 'wp_enqueue_scripts', array( $this, 'register_assets' ), 999 );
 
 			add_action( 'elementor/widgets/widgets_registered', array( $this, 'add_elementor_widgets' ) );
 			if ( ! defined( 'EAW_PRO_VERSION' ) ) {
@@ -45,8 +47,10 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 
 		/**
 		 * Add the Category for Orbit Fox Widgets.
+		 *
+		 * @param \Elementor\Elements_Manager $elements_manager Elementor elements manager.
 		 */
-		public function add_elementor_category() {
+		public function add_elementor_category( $elements_manager ) {
 
 			$category_args = apply_filters( 'elementor_extra_widgets_category_args', array(
 				'slug'  => 'obfx-elementor-widgets',
@@ -55,29 +59,36 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 			) );
 
 			// add a separate category for the premium widgets
-			\Elementor\Plugin::instance()->elements_manager->add_category(
+			$elements_manager->add_category(
 				$category_args['slug'] . '-pro',
 				array(
 					'title' => 'Premium ' . $category_args['title'],
 					'icon'  => $category_args['slug'],
-				),
-				1
+				)
 			);
 
-			\Elementor\Plugin::instance()->elements_manager->add_category(
+			$elements_manager->add_category(
 				$category_args['slug'],
 				array(
 					'title' => $category_args['title'],
 					'icon'  => $category_args['slug'],
-				),
-				1
+				)
 			);
 		}
 
-		public function register_assets() {
-			// Register custom JS for grid.
-			wp_register_script( 'obfx-grid-js', plugins_url( '/js/obfx-grid.js', __FILE__ ), array(), $this::$version, true );
+		/**
+		 * Register style.
+		 */
+		public function register_styles() {
 			wp_register_style( 'eaw-elementor', plugins_url( '/css/public.css', __FILE__ ), array(), $this::$version );
+			wp_register_style( 'font-awesome-5-all', ELEMENTOR_ASSETS_URL . 'lib/font-awesome/css/all.min.css', false, $this::$version );
+		}
+
+		/**
+		 * Register js scripts.
+		 */
+		public function register_scripts() {
+			wp_register_script( 'obfx-grid-js', plugins_url( '/js/obfx-grid.js', __FILE__ ), array(), $this::$version, true );
 		}
 
 		public function enqueue_sidebar_css() {
