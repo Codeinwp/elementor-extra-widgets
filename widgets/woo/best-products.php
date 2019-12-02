@@ -61,13 +61,16 @@ class Woo_Best_Products extends EAW_WP_Widget {
 		}
 
 		$args = apply_filters(
-			'elementor-addon-widgets_product_categories_args', array(
-                'widget_id' => $args['widget_id'],
-				'limit'   => $limit,
-				'columns' => $columns,
-				'title'   => $title,
-				'orderby' => 'date',
-				'order'   => 'desc',
+			'elementor-addon-widgets_product_categories_args',
+			array_merge(
+				array(
+					'limit'   => $limit,
+					'columns' => $columns,
+					'title'   => $title,
+					'orderby' => 'date',
+					'order'   => 'desc',
+				),
+				$args
 			)
 		);
 

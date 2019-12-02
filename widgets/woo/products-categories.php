@@ -66,12 +66,16 @@ class Woo_Product_Categories extends EAW_WP_Widget {
 		}
 
 		$args = apply_filters(
-			'eaw_product_categories_args', array(
-				'limit'            => $limit,
-				'columns'          => $columns,
-				'child_categories' => 0,
-				'orderby'          => 'name',
-				'title'            => $title,
+			'eaw_product_categories_args',
+			array_merge(
+                array(
+                    'limit'            => $limit,
+                    'columns'          => $columns,
+                    'child_categories' => 0,
+                    'orderby'          => 'name',
+                    'title'            => $title,
+                ),
+				$args
 			)
 		);
 

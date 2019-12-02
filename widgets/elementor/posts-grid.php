@@ -11,6 +11,7 @@
 namespace ThemeIsle\ElementorExtraWidgets;
 
 use Elementor\Controls_Manager;
+use Elementor\Group_Control_Background;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Typography;
 use Elementor\Scheme_Color;
@@ -62,6 +63,15 @@ class Posts_Grid extends Widget_Base {
 	 */
 	public function get_script_depends() {
 		return [ 'obfx-grid-js' ];
+	}
+
+	/**
+	 * Retrieve the list of styles the post grid widget depended on.
+	 *
+	 * @return array Widget scripts dependencies.
+	 */
+	public function get_style_depends() {
+		return [ 'eaw-elementor', 'font-awesome-5-all' ];
 	}
 
 	/**
@@ -787,7 +797,7 @@ class Posts_Grid extends Widget_Base {
 
 		// Background.
 		$this->add_group_control(
-			\Elementor\Group_Control_Background::get_type(),
+			Group_Control_Background::get_type(),
 			[
 				'name'     => 'grid_style_background',
 				'types'    => [ 'classic', 'gradient' ],
@@ -843,7 +853,7 @@ class Posts_Grid extends Widget_Base {
 
 		// Background for items options.
 		$this->add_group_control(
-			\Elementor\Group_Control_Background::get_type(),
+			Group_Control_Background::get_type(),
 			[
 				'name'     => 'grid_items_style_background',
 				'types'    => [ 'classic', 'gradient' ],
@@ -1017,6 +1027,23 @@ class Posts_Grid extends Widget_Base {
 					'{{WRAPPER}} .obfx-grid-meta'      => 'color: {{VALUE}};',
 					'{{WRAPPER}} .obfx-grid-meta span' => 'color: {{VALUE}};',
 					'{{WRAPPER}} .obfx-grid-meta a'    => 'color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'grid_meta_icon_spacing',
+			[
+				'label'     => __( 'Icons spacing', 'textdomain' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => [
+					'px' => [
+						'min' => 0,
+						'max' => 50,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .obfx-grid-meta i'   => 'margin-right: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -1419,9 +1446,6 @@ class Posts_Grid extends Widget_Base {
 	protected function render() {
 		// Get settings.
 		$settings = $this->get_settings();
-		$this->maybe_load_widget_style();
-		// ensure the needed scripts
-
 
 		// Output.
 		echo '<div class="obfx-grid">';
@@ -1509,11 +1533,10 @@ class Posts_Grid extends Widget_Base {
 				// Button.
 				$this->renderButton();
 
-				echo '</div><!-- .obfx-grid-col-content -->';
+				echo '</div>';
 				echo '</article>';
 				echo '</div>';
-
-			} // End while().
+			}
 
 			// Pagination.
 			if ( ! empty( $settings['grid_pagination'] ) ) { ?>
@@ -1627,7 +1650,7 @@ class Posts_Grid extends Widget_Base {
 							case 'author': ?>
 								<span class="obfx-grid-author">
 									<?php
-									echo ( $settings['grid_meta_remove_icons'] == '' ) ? '<i class="fa fa-user"></i>' : '';
+									echo ( $settings['grid_meta_remove_icons'] == '' ) ? '<i class="fas fa-user"></i>' : '';
 
 									echo get_the_author(); ?>
 								</span>
@@ -1637,7 +1660,7 @@ class Posts_Grid extends Widget_Base {
 							case 'date': ?>
 								<span class="obfx-grid-date">
 									<?php
-									echo ( $settings['grid_meta_remove_icons'] == '' ) ? '<i class="fa fa-calendar"></i>' : '';
+									echo ( $settings['grid_meta_remove_icons'] == '' ) ? '<i class="fas fa-calendar"></i>' : '';
 									echo get_the_date(); ?>
 								</span>
 								<?php
@@ -1656,7 +1679,7 @@ class Posts_Grid extends Widget_Base {
 							case 'comments': ?>
 								<span class="obfx-grid-comments">
 									<?php
-									echo ( $settings['grid_meta_remove_icons'] == '' ) ? '<i class="fa fa-comment"></i>' : '';
+									echo ( $settings['grid_meta_remove_icons'] == '' ) ? '<i class="fas fa-comment"></i>' : '';
 
 									if ( $settings['grid_post_type'] == 'product' ) {
 										echo comments_number( __( 'No reviews', 'textdomain' ), __( '1 review', 'textdomain' ), __( '% reviews', 'textdomain' ) );
@@ -1781,7 +1804,7 @@ class Posts_Grid extends Widget_Base {
 		if ( $post_type_category ) { ?>
 			<span class="obfx-grid-categories">
 				<?php
-				echo ( $settings['grid_meta_remove_icons'] == '' ) ? '<i class="fa fa-bookmark"></i>' : '';
+				echo ( $settings['grid_meta_remove_icons'] == '' ) ? '<i class="fas fa-bookmark"></i>' : '';
 
 				foreach ( $post_type_category as $category ) {
 					if ( $i == $maxCategories ) {
@@ -1813,7 +1836,7 @@ class Posts_Grid extends Widget_Base {
 		if ( $post_type_tags ) { ?>
 			<span class="obfx-grid-tags">
 				<?php
-				echo ( $settings['grid_meta_remove_icons'] == '' ) ? '<i class="fa fa-tags"></i>' : '';
+				echo ( $settings['grid_meta_remove_icons'] == '' ) ? '<i class="fas fa-tags"></i>' : '';
 
 				foreach ( $post_type_tags as $tag ) {
 					if ( $i == $maxTags ) {
@@ -1831,23 +1854,4 @@ class Posts_Grid extends Widget_Base {
 			<?php
 		}
 	}
-
-	/**
-	 * Load the widget style dynamically if it is a widget preview
-	 * or enqueue style and scripts if not
-	 *
-	 * This way we are sure that the assets files are loaded only when this block is present in page.
-	 */
-	protected function maybe_load_widget_style() {
-		if ( \Elementor\Plugin::$instance->editor->is_edit_mode() === true && apply_filters( 'themeisle_content_forms_register_default_style', true ) ) { ?>
-			<style>
-				<?php echo file_get_contents( plugin_dir_path( dirname( dirname(__FILE__ ) ) ) . 'css/public.css' ) ?>
-			</style>
-			<?php
-		} else {
-			wp_enqueue_script( 'obfx-grid-js' );
-			wp_enqueue_style( 'eaw-elementor' );
-		}
-	}
 }
-
