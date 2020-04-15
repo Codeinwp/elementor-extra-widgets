@@ -24,7 +24,7 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 		 * The version of this library
 		 * @var string
 		 */
-		public static $version = '1.0.3';
+		public static $version = '1.0.4';
 
 		/**
 		 * Defines the library behaviour
