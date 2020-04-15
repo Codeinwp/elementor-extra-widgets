@@ -1252,7 +1252,6 @@ class Posts_Grid extends Widget_Base {
 					'type'  => Scheme_Color::get_type(),
 					'value' => Scheme_Color::COLOR_1,
 				],
-				'default' => '#ffffff',
 				'separator' => '',
 				'selectors' => [
 					'{{WRAPPER}} .obfx-grid-footer a' => 'color: {{VALUE}};',
@@ -1471,7 +1470,7 @@ class Posts_Grid extends Widget_Base {
 		}
 
 		// Display products in category.
-		if ( ! empty( $settings['grid_product_categories'] ) && $settings['grid_post_type'] == 'product' ) {
+		if ( ! empty( $settings['grid_product_categories'] ) && $settings['grid_product_categories'] !== 'all' && $settings['grid_post_type'] === 'product' ) {
 			$args['tax_query'] = array(
 				'relation' => 'AND',
 				array(
@@ -1778,18 +1777,27 @@ class Posts_Grid extends Widget_Base {
 	 */
 	protected function renderButton() {
 		$settings = $this->get_settings();
-
-		if ( $settings['grid_post_type'] == 'product' && $settings['grid_content_product_btn'] == 'yes' ) { ?>
-			<div class="obfx-grid-footer">
-				<?php $this->renderAddToCart(); ?>
-			</div>
-		<?php } elseif ( $settings['grid_content_default_btn'] == 'yes' && ! empty( $settings['grid_content_default_btn_text'] ) ) { ?>
-			<div class="obfx-grid-footer">
-				<a href="<?php echo get_the_permalink(); ?>"
-				   title="<?php echo $settings['grid_content_default_btn_text']; ?>"><?php echo $settings['grid_content_default_btn_text']; ?></a>
-			</div>
-			<?php
+		if (  $settings['grid_content_product_btn'] !== 'yes' ){
+			return false;
 		}
+
+		if ( $settings['grid_post_type'] === 'product' ) {
+			echo '<div class="obfx-grid-footer">';
+			$this->renderAddToCart();
+			echo '</div>';
+			return true;
+		}
+
+		if ( ! empty( $settings['grid_content_default_btn_text'] ) ){
+			echo '<div class="obfx-grid-footer">';
+			echo '<a href="' . get_the_permalink(). '" title="'. esc_attr( $settings['grid_content_default_btn_text'] ) .'">';
+			echo $settings['grid_content_default_btn_text'];
+			echo '</a>';
+			echo '</div>';
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
