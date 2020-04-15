@@ -616,9 +616,8 @@ class Services extends Widget_Base {
 
 		echo '<div class="obfx-grid"><div class="obfx-grid-container' . ( ! empty( $settings['grid_columns_mobile'] ) ? ' obfx-grid-mobile-' . $settings['grid_columns_mobile'] : '' ) . ( ! empty( $settings['grid_columns_tablet'] ) ? ' obfx-grid-tablet-' . $settings['grid_columns_tablet'] : '' ) . ( ! empty( $settings['grid_columns'] ) ? ' obfx-grid-desktop-' . $settings['grid_columns'] : '' ) . '">';
 		foreach ( $settings['services_list'] as $service ) {
-
 			if ( ! empty( $service['link']['url'] ) ) {
-				$this->add_render_attribute( 'link', 'href', $settings['link']['url'] );
+				$this->add_render_attribute( 'link', 'href', $service['link']['url'] );
 
 				if ( $service['link']['is_external'] ) {
 					$this->add_render_attribute( 'link', 'target', '_blank' );
