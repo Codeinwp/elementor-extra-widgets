@@ -590,7 +590,7 @@ class Posts_Grid extends Widget_Base {
 			[
 				'label'     => '<i class="fa fa-check-square"></i> ' . __( 'Button', 'textdomain' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'default'   => 'yes',
+				'default'   => 'no',
 				'condition' => [
 					'section_grid.grid_post_type!' => 'product',
 				],
@@ -606,7 +606,7 @@ class Posts_Grid extends Widget_Base {
 				'placeholder' => __( 'Read more', 'textdomain' ),
 				'default'     => __( 'Read more', 'textdomain' ),
 				'condition'   => [
-					'grid_content_default_btn!'    => '',
+					'grid_content_default_btn!'    => ['','no'],
 					'section_grid.grid_post_type!' => 'product',
 				],
 			]
@@ -1248,10 +1248,7 @@ class Posts_Grid extends Widget_Base {
 			[
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Text Color', 'textdomain' ),
-				'scheme'    => [
-					'type'  => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_1,
-				],
+				'default'   => '#ffffff',
 				'separator' => '',
 				'selectors' => [
 					'{{WRAPPER}} .obfx-grid-footer a' => 'color: {{VALUE}};',
@@ -1777,18 +1774,19 @@ class Posts_Grid extends Widget_Base {
 	 */
 	protected function renderButton() {
 		$settings = $this->get_settings();
-		if (  $settings['grid_content_product_btn'] !== 'yes' ){
-			return false;
-		}
-
+		
 		if ( $settings['grid_post_type'] === 'product' ) {
+			if (  $settings['grid_content_product_btn'] !== 'yes' ){
+				return false;
+			}
 			echo '<div class="obfx-grid-footer">';
 			$this->renderAddToCart();
 			echo '</div>';
 			return true;
-		}
-
-		if ( ! empty( $settings['grid_content_default_btn_text'] ) ){
+		} else {
+			if (  $settings['grid_content_default_btn'] !== 'yes' ){
+				return false;
+			}
 			echo '<div class="obfx-grid-footer">';
 			echo '<a href="' . get_the_permalink(). '" title="'. esc_attr( $settings['grid_content_default_btn_text'] ) .'">';
 			echo $settings['grid_content_default_btn_text'];
