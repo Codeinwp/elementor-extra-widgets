@@ -71,7 +71,7 @@ class Posts_Grid extends Widget_Base {
 	 * @return array Widget scripts dependencies.
 	 */
 	public function get_style_depends() {
-		return [ 'eaw-elementor', 'font-awesome-5-all' ];
+		return [ 'eaw-elementor', 'font-awesome-5' ];
 	}
 
 	/**
