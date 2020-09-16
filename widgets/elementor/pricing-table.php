@@ -58,7 +58,7 @@ class Pricing_Table extends Widget_Base {
 	 * @return array Widget scripts dependencies.
 	 */
 	public function get_style_depends() {
-		return [ 'eaw-elementor' ];
+		return [ 'eaw-elementor', 'font-awesome-5' ];
 	}
 
 	/**

@@ -81,7 +81,7 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 		 */
 		public function register_styles() {
 			wp_register_style( 'eaw-elementor', plugins_url( '/css/public.css', __FILE__ ), array(), $this::$version );
-			wp_register_style( 'font-awesome-5-all', ELEMENTOR_ASSETS_URL . 'lib/font-awesome/css/all.min.css', false, $this::$version );
+			wp_register_style( 'font-awesome-5', ELEMENTOR_ASSETS_URL . 'lib/font-awesome/css/all.min.css', false, $this::$version );
 		}
 
 		/**
