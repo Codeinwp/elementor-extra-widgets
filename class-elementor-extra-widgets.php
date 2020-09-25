@@ -88,7 +88,7 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 		 * Register js scripts.
 		 */
 		public function register_scripts() {
-			wp_register_script( 'obfx-grid-js', plugins_url( '/js/obfx-grid.js', __FILE__ ), array(), $this::$version, true );
+			wp_register_script( 'obfx-grid-js', plugins_url( '/js/obfx-grid.js', __FILE__ ), array( 'jquery' ), $this::$version, true );
 		}
 
 		public function enqueue_sidebar_css() {
