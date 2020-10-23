@@ -282,6 +282,20 @@ class Posts_Grid extends Widget_Base {
 				],
 			]
 		);
+		
+		//Order type
+		$this->add_control(
+			'grid_order_type',
+			[
+				'type'    => Controls_Manager::SELECT,
+				'label'   => '<i class="fa fa-sort"></i> ' . __( 'Order', 'textdomain' ),
+				'default' => 'DESC',
+				'options' => [
+					'ASC'          => __( 'Ascending', 'textdomain' ),
+					'DESC'         => __( 'Descending', 'textdomain' ),
+				],
+			]
+		);
 
 		// Display pagination.
 		$this->add_control(
@@ -1486,6 +1500,11 @@ class Posts_Grid extends Widget_Base {
 		// Order by.
 		if ( ! empty( $settings['grid_order_by'] ) ) {
 			$args['orderby'] = $settings['grid_order_by'];
+		}
+		
+		// Order type
+		if ( ! empty( $settings['grid_order_type'] ) ) {
+			$args['order'] = $settings['grid_order_type'];
 		}
 
 		// Pagination.
