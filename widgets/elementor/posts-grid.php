@@ -14,8 +14,8 @@ use Elementor\Controls_Manager;
 use Elementor\Group_Control_Background;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Typography;
-use Elementor\Scheme_Color;
-use Elementor\Scheme_Typography;
+use Elementor\Core\Schemes\Color;
+use Elementor\Core\Schemes\Typography;
 use Elementor\Widget_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -282,7 +282,7 @@ class Posts_Grid extends Widget_Base {
 				],
 			]
 		);
-		
+
 		//Order type
 		$this->add_control(
 			'grid_order_type',
@@ -963,7 +963,7 @@ class Posts_Grid extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'grid_title_style_typography',
-				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'   => Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .obfx-grid .entry-title.obfx-grid-title, {{WRAPPER}} .obfx-grid .entry-title.obfx-grid-title > a',
 			]
 		);
@@ -975,8 +975,8 @@ class Posts_Grid extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Color', 'textdomain' ),
 				'scheme'    => [
-					'type'  => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_1,
+					'type'  => Color::get_type(),
+					'value' => Color::COLOR_1,
 				],
 				'selectors' => [
 					'{{WRAPPER}} .obfx-grid .entry-title.obfx-grid-title'       => 'color: {{VALUE}};',
@@ -1022,7 +1022,7 @@ class Posts_Grid extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'grid_meta_style_typography',
-				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'   => Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .obfx-grid-meta > span',
 			]
 		);
@@ -1034,8 +1034,8 @@ class Posts_Grid extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Color', 'textdomain' ),
 				'scheme'    => [
-					'type'  => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_1,
+					'type'  => Color::get_type(),
+					'value' => Color::COLOR_1,
 				],
 				'selectors' => [
 					'{{WRAPPER}} .obfx-grid-meta'      => 'color: {{VALUE}};',
@@ -1096,7 +1096,7 @@ class Posts_Grid extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name'      => 'grid_content_style_typography',
-				'scheme'    => Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'    => Typography::TYPOGRAPHY_1,
 				'selector'  => '{{WRAPPER}} .obfx-grid-content',
 				'condition' => [
 					'section_grid_content.grid_content_hide' => '',
@@ -1111,8 +1111,8 @@ class Posts_Grid extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Color', 'textdomain' ),
 				'scheme'    => [
-					'type'  => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_1,
+					'type'  => Color::get_type(),
+					'value' => Color::COLOR_1,
 				],
 				'selectors' => [
 					'{{WRAPPER}} .obfx-grid-content' => 'color: {{VALUE}};',
@@ -1158,7 +1158,7 @@ class Posts_Grid extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name'      => 'grid_content_price_style_typography',
-				'scheme'    => Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'    => Typography::TYPOGRAPHY_1,
 				'selector'  => '{{WRAPPER}} .obfx-grid-price',
 				'condition' => [
 					'section_grid_content.grid_content_price' => 'yes',
@@ -1174,8 +1174,8 @@ class Posts_Grid extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Color', 'textdomain' ),
 				'scheme'    => [
-					'type'  => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_1,
+					'type'  => Color::get_type(),
+					'value' => Color::COLOR_1,
 				],
 				'selectors' => [
 					'{{WRAPPER}} .obfx-grid-price' => 'color: {{VALUE}};',
@@ -1233,7 +1233,7 @@ class Posts_Grid extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name'      => 'grid_button_style_typography',
-				'scheme'    => Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'    => Typography::TYPOGRAPHY_1,
 				'selector'  => '{{WRAPPER}} .obfx-grid-footer a',
 				'condition' => [
 					'section_grid_content.grid_content_default_btn!' => '',
@@ -1281,8 +1281,8 @@ class Posts_Grid extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Background Color', 'textdomain' ),
 				'scheme'    => [
-					'type'  => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_1,
+					'type'  => Color::get_type(),
+					'value' => Color::COLOR_1,
 				],
 				'separator' => '',
 				'selectors' => [
@@ -1330,8 +1330,8 @@ class Posts_Grid extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Text Color', 'textdomain' ),
 				'scheme'    => [
-					'type'  => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_1,
+					'type'  => Color::get_type(),
+					'value' => Color::COLOR_1,
 				],
 				'separator' => '',
 				'selectors' => [
@@ -1351,8 +1351,8 @@ class Posts_Grid extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Background Color', 'textdomain' ),
 				'scheme'    => [
-					'type'  => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_1,
+					'type'  => Color::get_type(),
+					'value' => Color::COLOR_1,
 				],
 				'separator' => '',
 				'selectors' => [
@@ -1501,7 +1501,7 @@ class Posts_Grid extends Widget_Base {
 		if ( ! empty( $settings['grid_order_by'] ) ) {
 			$args['orderby'] = $settings['grid_order_by'];
 		}
-		
+
 		// Order type
 		if ( ! empty( $settings['grid_order_type'] ) ) {
 			$args['order'] = $settings['grid_order_type'];
@@ -1793,7 +1793,7 @@ class Posts_Grid extends Widget_Base {
 	 */
 	protected function renderButton() {
 		$settings = $this->get_settings();
-		
+
 		if ( $settings['grid_post_type'] === 'product' ) {
 			if (  $settings['grid_content_product_btn'] !== 'yes' ){
 				return false;
