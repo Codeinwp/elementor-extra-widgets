@@ -13,8 +13,8 @@ use Elementor\Controls_Manager;
 use Elementor\Group_Control_Background;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Typography;
-use Elementor\Scheme_Color;
-use Elementor\Scheme_Typography;
+use Elementor\Core\Schemes\Color;
+use Elementor\Core\Schemes\Typography;
 use Elementor\Widget_Base;
 
 /**
@@ -382,7 +382,7 @@ class Services extends Widget_Base {
 			[
 				'name' => 'title_typography',
 				'selector' => '{{WRAPPER}} .obfx-service-title',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+				'scheme' => Typography::TYPOGRAPHY_1,
 			]
 		);
 
@@ -405,8 +405,8 @@ class Services extends Widget_Base {
 					'{{WRAPPER}} .obfx-service-text' => 'color: {{VALUE}};',
 				],
 				'scheme' => [
-					'type' => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_3,
+					'type' => Color::get_type(),
+					'value' => Color::COLOR_3,
 				],
 			]
 		);
@@ -416,7 +416,7 @@ class Services extends Widget_Base {
 			[
 				'name' => 'description_typography',
 				'selector' => '{{WRAPPER}} .obfx-service-text',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_3,
+				'scheme' => Typography::TYPOGRAPHY_3,
 			]
 		);
 
