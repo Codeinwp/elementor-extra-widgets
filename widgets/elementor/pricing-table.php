@@ -17,6 +17,7 @@ use Elementor\Plugin;
 use Elementor\Core\Schemes\Color;
 use Elementor\Core\Schemes\Typography;
 use Elementor\Widget_Base;
+use Elementor\Repeater;
 
 /**
  * Class Pricing_Table
@@ -231,6 +232,42 @@ class Pricing_Table extends Widget_Base {
 			]
 		);
 
+		$repeater = new Repeater();
+		$repeater->add_control(
+			'accent',
+			[
+				'label'       => __( 'Accented Text', 'textdomain' ),
+				'type'        => Controls_Manager::TEXT,
+				'label_block' => true,
+				'description' => __( 'Appears before feature text', 'textdomain' ),
+				'default'     => __( 'Accent', 'textdomain' ),
+			]
+		);
+
+		$repeater->add_control(
+			'text',
+			[
+				'label'       => __( 'Text', 'textdomain' ),
+				'type'        => Controls_Manager::TEXT,
+				'label_block' => true,
+				'placeholder' => __( 'Plan Features', 'textdomain' ),
+				'default'     => __( 'Feature', 'textdomain' ),
+			]
+		);
+
+		$repeater->add_control(
+			'feature_icon_new',
+			[
+				'label'       => __( 'Icon', 'textdomain' ),
+				'type' => Controls_Manager::ICONS,
+				'default' => [
+					'value' => 'fas fa-star',
+					'library' => 'solid',
+				],
+				'fa4compatibility' => 'feature_icon',
+			]
+		);
+
 		$this->add_control(
 			'feature_list',
 			[
@@ -250,34 +287,7 @@ class Pricing_Table extends Widget_Base {
 						'text'   => __( 'Feature', 'textdomain' ),
 					],
 				],
-				'fields'      => [
-					[
-						'type'        => Controls_Manager::TEXT,
-						'name'        => 'accent',
-						'label'       => __( 'Accented Text', 'textdomain' ),
-						'description' => __( 'Appears before feature text', 'textdomain' ),
-						'label_block' => true,
-						'default'     => __( 'Accent', 'textdomain' ),
-					],
-					[
-						'type'        => Controls_Manager::TEXT,
-						'name'        => 'text',
-						'label'       => __( 'Text', 'textdomain' ),
-						'label_block' => true,
-						'placeholder' => __( 'Plan Features', 'textdomain' ),
-						'default'     => __( 'Feature', 'textdomain' ),
-					],
-                    [
-                        'type' => Controls_Manager::ICONS,
-                        'name'        => 'feature_icon_new',
-                        'label'       => __( 'Icon', 'textdomain' ),
-                        'default' => [
-	                        'value' => 'fas fa-star',
-	                        'library' => 'solid',
-                        ],
-                        'fa4compatibility' => 'feature_icon',
-                    ],
-				],
+				'fields'      => $repeater->get_controls(),
 				'title_field' => '{{ accent + " " + text }}',
 			]
 		);
