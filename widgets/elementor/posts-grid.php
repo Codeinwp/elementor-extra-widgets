@@ -156,7 +156,7 @@ class Posts_Grid extends Widget_Base {
 	/**
 	 * Register Elementor Controls.
 	 */
-	protected function _register_controls() {
+	protected function register_controls() {
 		// Content.
 		$this->grid_options_section();
 		$this->grid_image_section();

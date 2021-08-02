@@ -76,7 +76,7 @@ class Pricing_Table extends Widget_Base {
 	/**
 	 * Register Elementor Controls
 	 */
-	protected function _register_controls() {
+	protected function register_controls() {
 		$this->plan_title_section();
 
 		$this->plan_price_tag_section();
