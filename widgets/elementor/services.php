@@ -76,7 +76,7 @@ class Services extends Widget_Base {
 	/**
 	 * Register Elementor Controls
 	 */
-	protected function _register_controls() {
+	protected function register_controls() {
 		$this->services_content();
 		$this->style_icon();
 		$this->style_grid_options();

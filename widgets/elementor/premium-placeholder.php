@@ -61,7 +61,7 @@ abstract class Premium_Placeholder extends \Elementor\Widget_Base {
 	 *
 	 * Because this is just a placeholder widget, we need to output this to the Lite users.
 	 */
-	protected function _register_controls() {
+	protected function register_controls() {
 		$this->start_controls_section(
 			'section_title',
 			[
