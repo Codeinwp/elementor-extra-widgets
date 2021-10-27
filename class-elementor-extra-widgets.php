@@ -43,6 +43,14 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 			if ( ! defined( 'EAW_PRO_VERSION' ) ) {
 				add_action( 'elementor/editor/after_enqueue_scripts', array( $this, 'enqueue_sidebar_css' ) );
 			}
+
+			// Ensure Font Awesome is always enqeued
+			add_action(
+				'elementor/editor/after_enqueue_styles',
+				function() {
+					wp_enqueue_style( 'font-awesome' );
+				}
+			);
 		}
 
 		/**
