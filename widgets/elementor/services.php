@@ -49,7 +49,7 @@ class Services extends Widget_Base {
 	 * @return string
 	 */
 	public function get_icon() {
-		return 'fa fa-diamond';
+		return 'eicon-star';
 	}
 
 	/**
