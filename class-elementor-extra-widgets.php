@@ -102,6 +102,7 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 		public function enqueue_sidebar_css() {
 			wp_enqueue_style( 'eaw-elementor-admin', plugins_url( '/css/admin.css', __FILE__ ), array(), $this::$version );
 		}
+
 		/**
 		 * Require and instantiate Elementor Widgets and Premium Placeholders.
 		 *
@@ -127,11 +128,10 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 				}
 			}
 
-
-            if( wp_get_theme()->get( 'Name' ) === 'Neve' && ! is_plugin_active( 'neve-pro-addon/neve-pro-addon.php' ) ) {
+            if( wp_get_theme()->get( 'Name' ) === 'Neve' && class_exists( 'Elementor_Widgets_OBFX_Module', false ) && ! \Elementor_Widgets_OBFX_Module::has_valid_addons() ){
 				$placeholders = $this->get_dir_files( __DIR__ . '/widgets/elementor/placeholders' );
 				foreach ( $placeholders as $widget ) {
-					require_once $widget;
+                    require_once $widget;
 				}
 
 				do_action( 'eaw_before_pro_widgets', $placeholders, $widgets_manager );
