@@ -22,19 +22,6 @@ abstract class Premium_Placeholder extends \Elementor\Widget_Base {
 	}
 
 	/**
-	 * Returns the up-sell link for premium widgets.
-	 * It should be overwritten in the extended class.
-	 *
-	 * @return string
-	 */
-	public function get_upsell_link() {
-		if ( ! defined( 'SIZZIFY_UPSELL_LINK' ) ) {
-			return 'https://themeisle.com/wordpress-plugins';
-		}
-		return SIZZIFY_UPSELL_LINK;
-	}
-
-	/**
 	 * Get widget icon.
 	 *
 	 * @return string
@@ -62,29 +49,7 @@ abstract class Premium_Placeholder extends \Elementor\Widget_Base {
 	 * Because this is just a placeholder widget, we need to output this to the Lite users.
 	 */
 	protected function register_controls() {
-		$this->start_controls_section(
-			'section_title',
-			[
-				'label' => $this->get_title()
-			]
-		);
-
-		$this->add_control(
-			'inform_about_placeholder',
-			[
-				'raw'             => sprintf(
-					'<div><h3>%s</h3><a href="%s" target="_blank">%s</a></div>',
-					__( 'This widget is part of the pro version of Sizzify.', 'textdomain' ),
-					$this->get_upsell_link(),
-					__( 'Upgrade Here!', 'textdomain' )
-				),
-				'type'            => \Elementor\Controls_Manager::RAW_HTML,
-				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
-			]
-		);
-
-		$this->end_controls_section(); // end section-title
-
+        // Empty controls section the because the widgets settings can't be open.
 	}
 
 	/**
@@ -92,20 +57,6 @@ abstract class Premium_Placeholder extends \Elementor\Widget_Base {
 	 * Only on the editor side will output a message about it's type.
 	 */
 	public function render() {
-		if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) { ?>
-			<div class="elementor-premium-placeholder" role="tablist"
-				 style="position: relative;
-				background: #fff;
-				color: red;
-				text-align: center;"
-			>
-				<h3 style="color:red"><?php echo $this->get_title(); ?></h3>
-				<i class="elementor-widget-empty-icon eicon-insert-image"
-				   style="font-size: 100px;
-					vertical-align: middle;
-					color: grey"></i>
-				<p>This is a Premium widget. You need to buy it to use it.</p>
-			</div>
-		<?php }
+		// Empty render function because the widgets can't be added.
 	}
 }

@@ -70,7 +70,7 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 			$elements_manager->add_category(
 				$category_args['slug'] . '-pro',
 				array(
-					'title' => 'Premium ' . $category_args['title'],
+					'title' => 'Neve PRO Addon Widgets',
 					'icon'  => $category_args['slug'],
 				)
 			);
@@ -127,7 +127,8 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 				}
 			}
 
-			if ( apply_filters( 'eaw_should_load_placeholders', false ) ) {
+
+            if( wp_get_theme()->get( 'Name' ) === 'Neve' && ! is_plugin_active( 'neve-pro-addon/neve-pro-addon.php' ) ) {
 				$placeholders = $this->get_dir_files( __DIR__ . '/widgets/elementor/placeholders' );
 				foreach ( $placeholders as $widget ) {
 					require_once $widget;
