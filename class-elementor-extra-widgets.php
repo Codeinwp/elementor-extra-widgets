@@ -128,7 +128,7 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 				}
 			}
 
-            if( wp_get_theme()->get( 'Name' ) === 'Neve' && class_exists( 'Elementor_Widgets_OBFX_Module', false ) && ! \Elementor_Widgets_OBFX_Module::has_valid_addons() ){
+            if( class_exists( 'Elementor_Widgets_OBFX_Module', false ) && \Elementor_Widgets_OBFX_Module::should_add_placeholders() ){
 				$placeholders = $this->get_dir_files( __DIR__ . '/widgets/elementor/placeholders' );
 				foreach ( $placeholders as $widget ) {
                     require_once $widget;
