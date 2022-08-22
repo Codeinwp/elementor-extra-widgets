@@ -288,6 +288,11 @@
 	.obfx-grid-mobile-5 .obfx-grid-wrapper {
 		width: 20%;
 	}
+
+	.obfx-grid-container.obfx-grid-style-list .obfx-grid-col-image,
+	.obfx-grid-container.obfx-grid-style-list .obfx-grid-col-content{
+		width: 100%;
+	}
 }
 
 /* End Of Post Type Grid Base CSS */
