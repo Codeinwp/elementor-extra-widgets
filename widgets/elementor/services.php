@@ -104,7 +104,7 @@ class Services extends Widget_Base {
                 'options'   => [
                     'icon'   => [
                         'title' => __( 'Icon', 'textdomain' ),
-                        'icon'  => 'fa fa-diamond',
+                        'icon'  => 'fa fa-icons',
                     ],
                     'image' => [
                         'title' => __( 'Image', 'textdomain' ),
