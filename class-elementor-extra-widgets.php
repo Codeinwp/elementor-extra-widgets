@@ -51,6 +51,70 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 					wp_enqueue_style( 'font-awesome' );
 				}
 			);
+
+			// Before Elementor Widget Settings Save
+			add_filter( 'elementor/document/save/data', array( $this, 'before_settings_save' ), 10, 2 );
+		}
+
+		/**
+		 * Sanititze title tags.
+		 *
+		 * @param string $tag The tag to sanitize.
+		 * @param string $default The default tag.
+		 *
+		 * @return string
+		 */
+		private function sanitize_title_attributes( $tag, $default = 'h3' ) {
+			$allowed_tags = [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'span', 'div', 'p' ];
+			if ( ! in_array( $tag, $allowed_tags ) ) {
+				return $default;
+			}
+			return $tag;
+		}
+
+		/**
+		 * Recursively search and sanitize element fields data.
+		 *
+		 * @param array $elements_data The elements data.
+		 */
+		private function search_and_modify_widget_settings( &$elements_data ) {
+			foreach ( $elements_data as &$element ) {
+				if ( isset( $element['elType'] ) && $element['elType'] === 'widget' ) {
+					// Check if the widget is of the desired type
+					if ( isset( $element['widgetType'] ) && in_array( $element['widgetType'], [ 'obfx-pricing-table' ] ) ) {
+						// Modify the settings of the widget
+						$settings = $element['settings'];
+						if ( isset( $settings['title_tag'] ) ) {
+							$settings['title_tag'] = $this->sanitize_title_attributes( $settings['title_tag'], 'h3' );
+						}
+						if ( isset( $settings['subtitle_tag'] ) ) {
+							$settings['subtitle_tag'] = $this->sanitize_title_attributes( $settings['subtitle_tag'], 'p' );
+						}
+						$element['settings'] = $settings;
+					}
+				}
+
+				if ( isset( $element['elements'] ) && is_array( $element['elements'] ) ) {
+					// If the element has nested elements (e.g., section or column), recursively call the function
+					$this->search_and_modify_widget_settings( $element['elements'] );
+				}
+			}
+		}
+
+		/**
+		 * Filter the document data and sanitize the form parameters.
+		 *
+		 * @param array $data The document data.
+		 * @param @param \Elementor\Core\Base\Document $document The document instance.
+		 *
+		 * @return mixed
+		 */
+		public function before_settings_save( $data, $document ) {
+			if ( ! isset( $data['elements'] ) ) {
+				return;
+			}
+			$this->search_and_modify_widget_settings( $data['elements'] );
+			return $data;
 		}
 
 		/**
