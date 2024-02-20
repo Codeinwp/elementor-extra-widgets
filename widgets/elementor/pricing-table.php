@@ -1005,6 +1005,19 @@ class Pricing_Table extends Widget_Base {
 	}
 
 	/**
+	 * Sanitize tag output to only the allowed values.
+	 *
+	 * @param string $tag     Tag to sanitize.
+	 * @param string $default Default tag. Defaults to 'p'.
+	 *
+	 * @return string
+	 */
+	private function sanitize_tag( $tag, $default = 'p' ) {
+		$allowed_tags = [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p' ];
+		return in_array( $tag, $allowed_tags ) ? $tag : $default;
+	}
+
+	/**
 	 * Render function to output the pricing table.
 	 */
 	protected function render() {
@@ -1014,7 +1027,7 @@ class Pricing_Table extends Widget_Base {
 		$this->add_render_attribute( 'subtitle', 'class', 'obfx-pricing-table-subtitle' );
 		$this->add_render_attribute( 'button', 'class', 'obfx-pricing-table-button' );
 //		$this->add_render_attribute( 'button_icon', 'class', $settings['button_icon'] );
-		$this->add_render_attribute( 'button_icon_align', 'class', 'obfx-button-icon-align-' . $settings['button_icon_align'] );
+		$this->add_render_attribute( 'button_icon_align', 'class', 'obfx-button-icon-align-' . esc_attr( $settings['button_icon_align'] ) );
 		if ( ! empty( $settings['button_link']['url'] ) ) {
 			$this->add_render_attribute( 'button', 'href', esc_url( $settings['button_link']['url'] ) );
 
@@ -1033,24 +1046,26 @@ class Pricing_Table extends Widget_Base {
 		if ( ! empty( $settings['title'] ) || ! empty( $settings['subtitle'] ) ) {
 			$output .= '<div class="obfx-title-wrapper">';
 			if ( ! empty( $settings['title'] ) ) {
+				$title_tag = $this->sanitize_tag( $settings['title_tag'], 'h3' );
 				// Start of title tag.
-				$output .= '<' . esc_html( $settings['title_tag'] ) . ' ' . $this->get_render_attribute_string( 'title' ) . '>';
+				$output .= '<' . esc_html( $title_tag ) . ' ' . $this->get_render_attribute_string( 'title' ) . '>';
 
 				// Title string.
 				$output .= esc_html( $settings['title'] );
 
 				// End of title tag.
-				$output .= '</' . esc_html( $settings['title_tag'] ) . '>';
+				$output .= '</' . esc_html( $title_tag ) . '>';
 			}
 			if ( ! empty( $settings['subtitle'] ) ) {
+				$subtitle_tag = $this->sanitize_tag( $settings['subtitle_tag'], 'p' );
 				// Start of subtitle tag.
-				$output .= '<' . esc_html( $settings['subtitle_tag'] ) . ' ' . $this->get_render_attribute_string( 'subtitle' ) . '>';
+				$output .= '<' . esc_html( $subtitle_tag ) . ' ' . $this->get_render_attribute_string( 'subtitle' ) . '>';
 
 				// Subtitle string.
 				$output .= esc_html( $settings['subtitle'] );
 
 				// End of subtitle tag.
-				$output .= '</' . esc_html( $settings['subtitle_tag'] ) . '>';
+				$output .= '</' . esc_html( $subtitle_tag ) . '>';
 
 			}
 
