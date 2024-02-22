@@ -81,7 +81,7 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 			foreach ( $elements_data as &$element ) {
 				if ( isset( $element['elType'] ) && $element['elType'] === 'widget' ) {
 					// Check if the widget is of the desired type
-					if ( isset( $element['widgetType'] ) && in_array( $element['widgetType'], [ 'obfx-pricing-table' ] ) ) {
+					if ( isset( $element['widgetType'] ) && in_array( $element['widgetType'], [ 'obfx-pricing-table', 'obfx-posts-grid' ] ) ) {
 						// Modify the settings of the widget
 						$settings = $element['settings'];
 						if ( isset( $settings['title_tag'] ) ) {
@@ -89,6 +89,9 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 						}
 						if ( isset( $settings['subtitle_tag'] ) ) {
 							$settings['subtitle_tag'] = $this->sanitize_title_attributes( $settings['subtitle_tag'], 'p' );
+						}
+						if ( isset( $settings['grid_title_tag'] ) ) {
+							$settings['grid_title_tag'] = $this->sanitize_title_attributes( $settings['grid_title_tag'], 'h3' );
 						}
 						$element['settings'] = $settings;
 					}
@@ -174,6 +177,7 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 		 */
 		public function add_elementor_widgets( $widgets_manager ) {
 			$elementor_widgets = $this->get_dir_files( __DIR__ . '/widgets/elementor' );
+			include_once( plugin_dir_path( __FILE__ ) . 'widgets/elementor/traits/sanitization.php' );
 
 			foreach ( $elementor_widgets as $widget ) {
 				require_once $widget;

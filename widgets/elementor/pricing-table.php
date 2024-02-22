@@ -18,6 +18,7 @@ use Elementor\Core\Schemes\Color;
 use Elementor\Core\Schemes\Typography;
 use Elementor\Widget_Base;
 use Elementor\Repeater;
+use ThemeIsle\ElementorExtraWidgets\Traits\Sanitization;
 
 /**
  * Class Pricing_Table
@@ -25,6 +26,7 @@ use Elementor\Repeater;
  * @package ThemeIsle\ElementorExtraWidgets
  */
 class Pricing_Table extends Widget_Base {
+	use Sanitization;
 
 	/**
 	 * Widget title.
@@ -1002,19 +1004,6 @@ class Pricing_Table extends Widget_Base {
 		$this->end_controls_tab();
 
 		$this->end_controls_tabs();
-	}
-
-	/**
-	 * Sanitize tag output to only the allowed values.
-	 *
-	 * @param string $tag     Tag to sanitize.
-	 * @param string $default Default tag. Defaults to 'p'.
-	 *
-	 * @return string
-	 */
-	private function sanitize_tag( $tag, $default = 'p' ) {
-		$allowed_tags = [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p' ];
-		return in_array( $tag, $allowed_tags ) ? $tag : $default;
 	}
 
 	/**
