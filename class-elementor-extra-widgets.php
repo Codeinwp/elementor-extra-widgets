@@ -11,10 +11,14 @@
 namespace ThemeIsle;
 
 use Elementor\Plugin;
+use ThemeIsle\ElementorExtraWidgets\Traits\Sanitization;
 
 if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 
+	include_once( plugin_dir_path( __FILE__ ) . 'widgets/elementor/traits/sanitization.php' );
+
 	class ElementorExtraWidgets {
+		use Sanitization;
 		/**
 		 * @var ElementorExtraWidgets
 		 */
@@ -73,6 +77,23 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 		}
 
 		/**
+		 * Sanitize grid column values.
+		 *
+		 * @param array $settings The settings to sanitize.
+		 */
+		private function sanitize_grid_columns( &$settings ) {
+			if ( isset( $settings['grid_columns'] ) ) {
+				$settings['grid_columns'] = $this->sanitize_numeric( $settings['grid_columns'], 3 );
+			}
+			if ( isset( $settings['grid_columns_tablet'] ) ) {
+				$settings['grid_columns_tablet'] = $this->sanitize_numeric( $settings['grid_columns_tablet'], 2 );
+			}
+			if ( isset( $settings['grid_columns_mobile'] ) ) {
+				$settings['grid_columns_mobile'] = $this->sanitize_numeric( $settings['grid_columns_mobile'], 1 );
+			}
+		}
+
+		/**
 		 * Recursively search and sanitize element fields data.
 		 *
 		 * @param array $elements_data The elements data.
@@ -84,6 +105,9 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 					if ( isset( $element['widgetType'] ) && in_array( $element['widgetType'], [ 'obfx-pricing-table', 'obfx-posts-grid' ] ) ) {
 						// Modify the settings of the widget
 						$settings = $element['settings'];
+
+						// Sanitize the grid columns passing the settings by reference
+						$this->sanitize_grid_columns( $settings );
 						if ( isset( $settings['title_tag'] ) ) {
 							$settings['title_tag'] = $this->sanitize_title_attributes( $settings['title_tag'], 'h3' );
 						}
@@ -177,7 +201,6 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 		 */
 		public function add_elementor_widgets( $widgets_manager ) {
 			$elementor_widgets = $this->get_dir_files( __DIR__ . '/widgets/elementor' );
-			include_once( plugin_dir_path( __FILE__ ) . 'widgets/elementor/traits/sanitization.php' );
 
 			foreach ( $elementor_widgets as $widget ) {
 				require_once $widget;
