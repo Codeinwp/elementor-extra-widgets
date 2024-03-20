@@ -8,4 +8,5 @@
  * @since       1.0.0
  */
 
+require_once( dirname( __FILE__ ) . '/widgets/elementor/traits/sanitization.php' );
 require_once( dirname( __FILE__ ) . '/class-elementor-extra-widgets.php' );

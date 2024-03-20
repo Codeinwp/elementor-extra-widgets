@@ -15,8 +15,6 @@ use ThemeIsle\ElementorExtraWidgets\Traits\Sanitization;
 
 if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 
-	include_once( plugin_dir_path( __FILE__ ) . 'widgets/elementor/traits/sanitization.php' );
-
 	class ElementorExtraWidgets {
 		use Sanitization;
 		/**
