@@ -22,4 +22,16 @@ trait Sanitization {
 		$allowed_tags = [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p' ];
 		return in_array( $tag, $allowed_tags ) ? $tag : $default;
 	}
+
+	/**
+	 * Sanitize a numeric value.
+	 *
+	 * @param mixed $value Value to sanitize.
+	 * @param int $default Default value. Defaults to 0.
+	 *
+	 * @return int
+	 */
+	private function sanitize_numeric( $value, $default = 0 ) {
+		return is_numeric( $value ) ? $value : $default;
+	}
 }
