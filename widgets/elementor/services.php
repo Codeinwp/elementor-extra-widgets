@@ -17,6 +17,7 @@ use Elementor\Core\Schemes\Color;
 use Elementor\Core\Schemes\Typography;
 use Elementor\Widget_Base;
 use Elementor\Repeater;
+use ThemeIsle\ElementorExtraWidgets\Traits\Sanitization;
 
 /**
  * Class Services
@@ -24,6 +25,7 @@ use Elementor\Repeater;
  * @package ThemeIsle\ElementorExtraWidgets
  */
 class Services extends Widget_Base {
+	use Sanitization;
 
 	/**
 	 * Widget name.
@@ -636,7 +638,11 @@ class Services extends Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings();
 
-		echo '<div class="obfx-grid"><div class="obfx-grid-container' . ( ! empty( $settings['grid_columns_mobile'] ) ? ' obfx-grid-mobile-' . $settings['grid_columns_mobile'] : '' ) . ( ! empty( $settings['grid_columns_tablet'] ) ? ' obfx-grid-tablet-' . $settings['grid_columns_tablet'] : '' ) . ( ! empty( $settings['grid_columns'] ) ? ' obfx-grid-desktop-' . $settings['grid_columns'] : '' ) . '">';
+		$grid_columns_mobile = ! empty( $settings['grid_columns_mobile'] ) ? ' obfx-grid-mobile-' . $this->sanitize_numeric( $settings['grid_columns_mobile'], 1 ) : '';
+		$grid_columns_tablet = ! empty( $settings['grid_columns_tablet'] ) ? ' obfx-grid-tablet-' . $this->sanitize_numeric( $settings['grid_columns_tablet'], 2 ) : '';
+		$grid_columns = ! empty( $settings['grid_columns'] ) ? ' obfx-grid-desktop-' . $this->sanitize_numeric( $settings['grid_columns'], 3 ) : '';
+
+		echo '<div class="obfx-grid"><div class="obfx-grid-container' . $grid_columns_mobile . $grid_columns_tablet . $grid_columns . '">';
 		foreach ( $settings['services_list'] as $service ) {
 			if ( ! empty( $service['link']['url'] ) ) {
 				$this->add_render_attribute( 'link', 'href', $service['link']['url'] );

@@ -100,7 +100,7 @@ if ( ! class_exists( '\ThemeIsle\ElementorExtraWidgets' ) ) {
 			foreach ( $elements_data as &$element ) {
 				if ( isset( $element['elType'] ) && $element['elType'] === 'widget' ) {
 					// Check if the widget is of the desired type
-					if ( isset( $element['widgetType'] ) && in_array( $element['widgetType'], [ 'obfx-pricing-table', 'obfx-posts-grid' ] ) ) {
+					if ( isset( $element['widgetType'] ) && in_array( $element['widgetType'], [ 'obfx-pricing-table', 'obfx-posts-grid', 'obfx-services' ] ) ) {
 						// Modify the settings of the widget
 						$settings = $element['settings'];
 
