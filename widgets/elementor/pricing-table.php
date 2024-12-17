@@ -14,8 +14,8 @@ use Elementor\Group_Control_Background;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Typography;
 use Elementor\Plugin;
-use Elementor\Core\Schemes\Color;
-use Elementor\Core\Schemes\Typography;
+use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
+use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Widget_Base;
 use Elementor\Repeater;
 
@@ -431,9 +431,8 @@ class Pricing_Table extends Widget_Base {
 			[
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Title Color', 'textdomain' ),
-				'scheme'    => [
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => [
+					'default' => Global_Colors::COLOR_PRIMARY,
 				],
 				'default'   => '#464959',
 				'selectors' => [
@@ -446,7 +445,9 @@ class Pricing_Table extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'plan_title_typography',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'   => [
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				],
 				'selector' => '{{WRAPPER}} .obfx-pricing-table-title',
 			]
 		);
@@ -456,9 +457,8 @@ class Pricing_Table extends Widget_Base {
 			[
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Subtitle Color', 'textdomain' ),
-				'scheme'    => [
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => [
+					'default' => Global_Colors::COLOR_PRIMARY,
 				],
 				'default'   => '#60647d',
 				'selectors' => [
@@ -471,7 +471,9 @@ class Pricing_Table extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'plan_subtitle_typography',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'    => [
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				],
 				'selector' => '{{WRAPPER}} .obfx-pricing-table-subtitle',
 			]
 		);
@@ -536,9 +538,8 @@ class Pricing_Table extends Widget_Base {
 			[
 				'label'     => __( 'Currency Color', 'textdomain' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => [
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => [
+					'default' => Global_Colors::COLOR_PRIMARY,
 				],
 				'default'   => '#60647d',
 				'selectors' => [
@@ -551,7 +552,9 @@ class Pricing_Table extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'currency_typography',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'    => [
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				],
 				'selector' => '{{WRAPPER}} .obfx-price-currency',
 			]
 		);
@@ -570,9 +573,8 @@ class Pricing_Table extends Widget_Base {
 			[
 				'label'     => __( 'Price Color', 'textdomain' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => [
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => [
+					'default' => Global_Colors::COLOR_PRIMARY,
 				],
 				'default'   => '#60647d',
 				'selectors' => [
@@ -585,7 +587,9 @@ class Pricing_Table extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'price_typography',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'    => [
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				],
 				'selector' => '{{WRAPPER}} .obfx-price',
 			]
 		);
@@ -604,9 +608,8 @@ class Pricing_Table extends Widget_Base {
 			[
 				'label'     => __( 'Period Color', 'textdomain' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => [
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => [
+					'default' => Global_Colors::COLOR_PRIMARY,
 				],
 				'default'   => '#60647d',
 				'selectors' => [
@@ -619,7 +622,9 @@ class Pricing_Table extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'price_sub_text_typography',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'    => [
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				],
 				'selector' => '{{WRAPPER}} .obfx-pricing-period',
 			]
 		);
@@ -674,9 +679,8 @@ class Pricing_Table extends Widget_Base {
 			[
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Accented Color', 'textdomain' ),
-				'scheme'    => [
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => [
+					'default' => Global_Colors::COLOR_PRIMARY,
 				],
 				'default'   => '#60647d',
 				'selectors' => [
@@ -689,7 +693,9 @@ class Pricing_Table extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'features_accented_typography',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'    => [
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				],
 				'selector' => '{{WRAPPER}} .obfx-pricing-table-accented',
 			]
 		);
@@ -708,9 +714,8 @@ class Pricing_Table extends Widget_Base {
 			[
 				'label'     => __( 'Features Color', 'textdomain' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => [
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => [
+					'default' => Global_Colors::COLOR_PRIMARY,
 				],
 				'default'   => '#b1b3c0',
 				'selectors' => [
@@ -723,7 +728,9 @@ class Pricing_Table extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'features_features_typography',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'    => [
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				],
 				'selector' => '{{WRAPPER}} .obfx-pricing-table-feature',
 			]
 		);
@@ -742,9 +749,8 @@ class Pricing_Table extends Widget_Base {
 			[
 				'label'     => __( 'Icon Color', 'textdomain' ),
 				'type'      => Controls_Manager::COLOR,
-				'scheme'    => [
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => [
+					'default' => Global_Colors::COLOR_PRIMARY,
 				],
 				'default'   => '#b1b3c0',
 				'selectors' => [
@@ -821,7 +827,9 @@ class Pricing_Table extends Widget_Base {
 			[
 				'name'     => 'typography',
 				'label'    => __( 'Typography', 'textdomain' ),
-				'scheme'   => Typography::TYPOGRAPHY_4,
+				'global'    => [
+					'default' => Global_Typography::TYPOGRAPHY_ACCENT,
+				],
 				'selector' => '{{WRAPPER}} .obfx-pricing-table-button-wrapper',
 			]
 		);
@@ -894,9 +902,8 @@ class Pricing_Table extends Widget_Base {
 			[
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Text Color', 'textdomain' ),
-				'scheme'    => [
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => [
+					'default' => Global_Colors::COLOR_PRIMARY,
 				],
 				'default'   => '#fff',
 				'selectors' => [
@@ -943,9 +950,8 @@ class Pricing_Table extends Widget_Base {
 			[
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Text Color', 'textdomain' ),
-				'scheme'    => [
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => [
+					'default' => Global_Colors::COLOR_PRIMARY,
 				],
 				'default'   => '#fff',
 				'selectors' => [
@@ -958,9 +964,8 @@ class Pricing_Table extends Widget_Base {
 			[
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Background Color', 'textdomain' ),
-				'scheme'    => [
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
+				'global'    => [
+					'default' => Global_Colors::COLOR_PRIMARY,
 				],
 				'default'   => '#74c600',
 				'selectors' => [

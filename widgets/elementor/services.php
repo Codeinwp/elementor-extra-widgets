@@ -13,8 +13,8 @@ use Elementor\Controls_Manager;
 use Elementor\Group_Control_Background;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Typography;
-use Elementor\Core\Schemes\Color;
-use Elementor\Core\Schemes\Typography;
+use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
+use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Widget_Base;
 use Elementor\Repeater;
 
@@ -404,7 +404,9 @@ class Services extends Widget_Base {
 			[
 				'name' => 'title_typography',
 				'selector' => '{{WRAPPER}} .obfx-service-title',
-				'scheme' => Typography::TYPOGRAPHY_1,
+				'global'   => [
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				],
 			]
 		);
 
@@ -426,9 +428,8 @@ class Services extends Widget_Base {
 				'selectors' => [
 					'{{WRAPPER}} .obfx-service-text' => 'color: {{VALUE}};',
 				],
-				'scheme' => [
-					'type' => Color::get_type(),
-					'value' => Color::COLOR_3,
+				'global'    => [
+					'default' => Global_Colors::COLOR_TEXT,
 				],
 			]
 		);
@@ -438,7 +439,9 @@ class Services extends Widget_Base {
 			[
 				'name' => 'description_typography',
 				'selector' => '{{WRAPPER}} .obfx-service-text',
-				'scheme' => Typography::TYPOGRAPHY_3,
+				'global'   => [
+					'default' => Global_Typography::TYPOGRAPHY_TEXT,
+				],
 			]
 		);
 
